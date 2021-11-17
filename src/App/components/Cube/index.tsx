@@ -7,8 +7,11 @@ import { defaultWidth, defaultFontSize, defaultProps } from './constants';
 import { CubeProps } from './types';
 import styles from './index.module.scss';
 
-export const Cube = React.forwardRef<HTMLDivElement, CubeProps & typeof defaultProps>(function Cube(props, ref) {
-  const { color, clickable, style: styleProp, ...otherProps } = props;
+export const Cube = React.forwardRef<HTMLDivElement, CubeProps>(function Cube(props, ref) {
+  const { color, clickable, style: styleProp, ...otherProps } = {
+    ...defaultProps,
+    ...props,
+  };
   const combinedRef = useCombinedRefs(ref);
   const [width, setWidth] = React.useState<Nullable<number>>(null);
   const scaling = width ? width / defaultWidth : 1;
@@ -36,5 +39,3 @@ export const Cube = React.forwardRef<HTMLDivElement, CubeProps & typeof defaultP
     />
   );
 });
-
-Cube.defaultProps = defaultProps;
