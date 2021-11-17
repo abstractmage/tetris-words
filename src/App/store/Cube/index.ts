@@ -1,7 +1,7 @@
 import { makeAutoObservable } from 'mobx';
 import { EventEmitter } from 'src/App/shared/EventEmitter';
 import { Nullable } from 'src/App/types';
-import { defaultColor } from './constants';
+import { defaultColor, eventNames } from './constants';
 import { EventTypeMap, Options } from './types';
 
 export class Cube {
@@ -89,5 +89,13 @@ export class Cube {
 
   setDisabled(disabled: boolean) {
     this._disabled = disabled;
+  }
+
+  handleMouseDown() {
+    this.eventEmitter.emit(eventNames.mousedown);
+  }
+
+  handleMouseEnter() {
+    this.eventEmitter.emit(eventNames.mouseenter);
   }
 }

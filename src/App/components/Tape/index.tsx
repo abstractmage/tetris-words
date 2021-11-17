@@ -12,10 +12,10 @@ export const Tape = observer(function Tape() {
   return (
     <div className={styles.main}>
       <div className={styles.slotsContainer}>
-        {figures.map(({ blocks, type }) => (
-          <Slot type={type}>
+        {figures.map(({ blocks, type }, i) => (
+          <Slot key={i} type={type}>
             <Figure type={type}>
-              {blocks.map(({ color, letter }) => <Cube color={color}>{letter}</Cube>)}
+              {blocks.map(({ color, letter }, i) => <Cube key={i} color={color}>{letter}</Cube>)}
             </Figure>
           </Slot>
         ))}

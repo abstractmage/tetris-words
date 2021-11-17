@@ -1,13 +1,18 @@
 import { last } from 'lodash';
 import { EventEmitter } from 'src/App/shared/EventEmitter';
+import { Nullable } from 'src/App/types';
 import { Cell } from '../Cell';
 import { Cube } from '../Cube';
 import { eventNames as cubeEventNames } from '../Cube/constants';
+import { Field } from '../Field';
+import { eventNames as fieldEventNames } from '../Field/constants';
 import { eventNames } from './constants';
 import { EventTypeMap } from './types';
 
-export class Selector {
+export class SelectorHelper {
   private eventEmitter = new EventEmitter<EventTypeMap>();
+
+  private field: Nullable<Field> = null;
   
   private cells: Cell[] = [];
   
@@ -35,50 +40,73 @@ export class Selector {
     this.eventEmitter.removeAllListeners(eventType);
   }
 
-  setCells(cells: Cell[]) {
-    this.cells = cells;
+  startListening(options: {
+    cubes: Cube[];
+    cells: Cell[];
+    field: Field;
+  }) {
+    this.cubes = options.cubes;
+    this.cells = options.cells;
+    this.field = options.field;
+    this.startCubeMouseDownListeners();
   }
 
-  startListening(cubes: Cube[], cells: Cell[]) {
-    this.cubes = cubes;
+  stopListening() {
+    this.stopCubeMouseDownListeners();
+    this.stopCubeMouseEnterListeners();
+    this.stopFieldMouseUpListener();
+  }
 
+  private startCubeMouseDownListeners() {
     this.cubes.forEach((cube) => {
       cube.on(cubeEventNames.mousedown, () => {
-        this.setSelectedCubes([...this.selectedCubes, cube]);
-        this.removeCubeMouseDownListeners();
+        this.setSelectedCubes([cube]);
+        this.stopCubeMouseDownListeners();
         this.startCubeMouseEnterListeners();
-      });
-
-      cube.on(cubeEventNames.mouseup, () => {
-        this.setSelectedCubes([]);
-        this.stopCubeMouseEnterListeners();
+        this.startFieldMouseUpListener();
       });
     });
   }
 
-  stopListening() {
-
+  private stopCubeMouseDownListeners() {
+    this.cubes.forEach((cube) => cube.removeAllListeners(cubeEventNames.mousedown));
   }
 
-  private removeCubeMouseDownListeners() {
-    this.cubes.forEach((cube) => cube.removeAllListeners(cubeEventNames.mousedown));
+  private startFieldMouseUpListener() {
+    if (this.field) {
+      this.field.on(fieldEventNames.mouseup, () => {
+        this.stopCubeMouseEnterListeners();
+        this.stopFieldMouseUpListener();
+        this.startCubeMouseDownListeners();
+      });
+    }
+  }
+
+  private stopFieldMouseUpListener() {
+    if (this.field) {
+      this.field.removeAllListeners(fieldEventNames.mouseup);
+    }
   }
 
   private startCubeMouseEnterListeners() {
     this.cubes.forEach((cube) => {
       cube.on(cubeEventNames.mouseenter, () => {
+        const currentCell = this.cells.find((cell) => cell.element === cube.slot)!;
         const prevCube = this.selectedCubes.slice(-2)[0];
         const lastCube = last(this.selectedCubes)!;
         const prevCell = this.cells.find((_cell) => _cell.element === prevCube?.slot)
         const lastCell = this.cells.find((_cell) => _cell.element === lastCube.slot)!;
         const neighborCells = this.getNeighborCells(lastCell);
-        const nextNeighborCell = neighborCells.find((cell) => cell === lastCell);
+        const nextNeighborCell = neighborCells.find((cell) => cell === currentCell);
+
 
         if (!nextNeighborCell) return;
 
         if (nextNeighborCell === prevCell) {
+          console.log(1);
           this.setSelectedCubes(this.selectedCubes.filter((cube) => cube !== lastCube));
         } else {
+          console.log(this.selectedCubes, cube);
           this.setSelectedCubes([...this.selectedCubes, cube]);
         }
       });
@@ -101,7 +129,7 @@ export class Selector {
   }
 
   private setSelectedCubes(cubes: Cube[]) {
-    this._selectedCubes.splice(0, 0, ...cubes);
+    this._selectedCubes = cubes;
     this.eventEmitter.emit(eventNames.selectedCubesUpdated, {
       selectedCubes: this.selectedCubes,
     });
