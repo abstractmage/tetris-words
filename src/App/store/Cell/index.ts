@@ -1,13 +1,16 @@
 import { makeAutoObservable } from 'mobx';
-import { Nullable } from 'src/App/types';
+import { Nullable, Point } from 'src/App/types';
 
 export class Cell {
+  private _point: Point;
+  
   private _hovered = false;
 
   private _element: Nullable<HTMLElement> = null;
 
-  constructor() {
+  constructor(options: { point: Point }) {
     makeAutoObservable(this, {}, { autoBind: true });
+    this._point = options.point;
   }
 
   get element() {
@@ -16,6 +19,10 @@ export class Cell {
 
   get hovered() {
     return this._hovered;
+  }
+
+  get point() {
+    return this._point;
   }
 
   loadElement(element: HTMLElement) {
