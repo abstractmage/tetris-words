@@ -1,0 +1,19 @@
+.main {
+  position: relative;
+  border-radius: 30%;
+  background: #FF8585;
+  transition: border 300ms;
+  width: 8rem;
+  height: 8rem;
+  border-bottom: 0.7rem solid #A82626;
+  cursor: pointer;
+  pointer-events: auto;
+  
+  &:active {
+    border: 0;
+  }
+
+  &_disabled {
+    pointer-events: none;
+  }
+}
