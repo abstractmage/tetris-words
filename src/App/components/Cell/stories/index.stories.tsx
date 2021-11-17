@@ -13,7 +13,7 @@ export const Cell: Story<CellProps> = (props) => (
   <FullSizeBlock className={styles.mainWrap} absolute>
     <div className={styles.wrap}>
       <CellView {...props} >
-        <Cube color={colors["#0ABA9A"]} clickable={false}>A</Cube>
+        <Cube color={colors["#0ABA9A"]}>A</Cube>
       </CellView>
     </div>
   </FullSizeBlock>

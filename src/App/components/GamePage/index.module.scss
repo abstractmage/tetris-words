@@ -8,10 +8,23 @@
 .progressContainer{
   width: 24.8rem;
   padding: 3.7rem 3rem;
+  display: flex;
+}
+
+.backButtonContainer{
+  position: absolute;
+  width: 8rem;
+  height: 8.7rem;
+  left: 3rem;
+  bottom: 3.7rem;
+}
+
+.scoreCounterContainer{
+  width: 12rem;
+  height: 13.7rem;
 }
 
 .fieldContainer {
   width: 57.6rem;
   padding-top: 3.7rem;
-
 }
