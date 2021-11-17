@@ -1,0 +1,10 @@
+$defaultFontSize: (10 / 1360) * 100vw;
+$firefoxFontSize: 0.7357vw;
+
+:root {
+  font-size: $defaultFontSize;
+
+  &.browser_firefox {
+    font-size: $firefoxFontSize;
+  }
+}
