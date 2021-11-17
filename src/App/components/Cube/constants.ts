@@ -12,5 +12,7 @@ export const colors = {
 
 export const defaultProps = {
   color: colors['#0ABA9A'],
-  clickable: false,
+  disabled: false,
+  hovered: false,
+  selected: false,
 };

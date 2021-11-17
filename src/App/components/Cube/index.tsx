@@ -8,19 +8,26 @@ import { CubeProps } from './types';
 import styles from './index.module.scss';
 
 export const Cube = React.forwardRef<HTMLDivElement, CubeProps>(function Cube(props, ref) {
-  const { color, clickable, style: styleProp, ...otherProps } = {
+  const {
+    color,
+    children,
+    disabled,
+    selected,
+    hovered,
+    style: styleProp,
+    ...otherProps
+  } = {
     ...defaultProps,
     ...props,
   };
+
   const combinedRef = useCombinedRefs(ref);
   const [width, setWidth] = React.useState<Nullable<number>>(null);
   const scaling = width ? width / defaultWidth : 1;
   const style: React.CSSProperties = React.useMemo(() => ({
     ...styleProp,
     fontSize: `${scaling * defaultFontSize}px`,
-    boxShadow: `${scaling * 2}px ${scaling * 2}px ${scaling * 2}px rgba(34, 0, 135, 0.25)`,
-    backgroundColor: color,
-  }), [color, scaling, styleProp]);
+  }), [scaling, styleProp]);
 
   React.useEffect(() => {
     const element = combinedRef.current!;
@@ -35,7 +42,27 @@ export const Cube = React.forwardRef<HTMLDivElement, CubeProps>(function Cube(pr
       {...otherProps}
       ref={combinedRef}
       style={style}
-      className={cn(styles.main, clickable && styles.main_clickable)}
-    />
+      className={cn(
+        styles.main,
+        selected && styles.main_selected,
+        hovered && styles.main_hovered,
+        disabled && styles.main_disabled,
+      )}
+    >
+      <FullSizeBlock
+        className={styles.background}
+        style={{
+          backgroundColor: color,
+          boxShadow: `${scaling * 2}px ${scaling * 2}px ${scaling * 2}px rgba(34, 0, 135, 0.25)`,
+        }}
+        absolute
+      />
+      <FullSizeBlock
+        className={styles.content}
+        absolute
+      >
+        {children}
+      </FullSizeBlock>
+    </FullSizeBlock>
   );
 });
