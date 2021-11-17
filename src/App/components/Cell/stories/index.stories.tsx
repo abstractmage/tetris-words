@@ -6,6 +6,8 @@ import styles from './index.module.scss';
 import { FullSizeBlock } from '../../FullSizeBlock';
 import { Cube } from '../../Cube';
 import { colors } from '../../Cube/constants';
+import '../../../shared/styles/index.scss';
+
 
 export const Cell: Story<CellProps> = (props) => (
   <FullSizeBlock className={styles.mainWrap} absolute>
@@ -18,7 +20,8 @@ export const Cell: Story<CellProps> = (props) => (
 );
 
 Cell.args = {
-  isFilled: true
+  isFilled: true,
+  isHovered: false,
 };
 
 export default {
