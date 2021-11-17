@@ -1,8 +1,9 @@
 import { observer } from "mobx-react";
 // import { useAppContext } from '../../shared/useAppContext';
-import styles from "./index.module.scss";
 import { Field } from "../Field";
 import { Cell } from "../Cell";
+import { Tape } from '../Tape';
+import styles from './index.module.scss';
 
 export const GamePage = observer(function GamePage() {
   // const {} = useAppContext();
@@ -19,7 +20,7 @@ export const GamePage = observer(function GamePage() {
           })}
         </Field>
       </div>
-      <div className={styles.tapeContainer}>tapeContainer</div>
+      <Tape />
     </div>
   );
 });

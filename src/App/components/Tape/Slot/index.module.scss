@@ -1,0 +1,18 @@
+.main {
+  position: relative;
+
+  &_type {
+    &_1 {
+      width: 5rem;
+      height: 5rem;
+    }
+    &_2 {
+      width: 10.4rem;
+      height: 5rem;
+    }
+    &_3 {
+      width: 5rem;
+      height: 10.4rem;
+    }
+  }
+}
