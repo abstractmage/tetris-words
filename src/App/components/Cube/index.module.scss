@@ -5,4 +5,9 @@
   align-items: center;
   color: #ffffff;
   font-weight: 900;
+  pointer-events: auto;
+
+  &_clickable {
+    cursor: pointer;
+  }
 }

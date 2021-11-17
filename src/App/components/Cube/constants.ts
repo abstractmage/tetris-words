@@ -12,4 +12,5 @@ export const colors = {
 
 export const defaultProps = {
   color: colors['#0ABA9A'],
+  clickable: false,
 };
