@@ -25,7 +25,7 @@ const Button = (props: ButtonProps) => {
           <Image />
         </div>
       )}
-      {children}
+      {type === 'default' && children}
     </button>
   );
 };
