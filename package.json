@@ -18,6 +18,7 @@
     "react": "^17.0.2",
     "react-dom": "^17.0.2",
     "react-scripts": "4.0.3",
+    "react-transition-group": "^4.4.2",
     "russian-words": "^1.0.1",
     "typescript": "^4.1.2",
     "web-vitals": "^1.0.1"
@@ -69,6 +70,7 @@
     "@storybook/storybook-deployer": "^2.8.10",
     "@types/event-emitter": "^0.3.3",
     "@types/lodash": "^4.14.176",
+    "@types/react-transition-group": "^4.4.4",
     "babel-loader": "8.1.0",
     "sass": "^1.43.4"
   }
