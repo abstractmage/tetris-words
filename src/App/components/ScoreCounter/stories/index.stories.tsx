@@ -2,18 +2,20 @@ import React from 'react';
 import { Meta, Story } from '@storybook/react';
 import { FullSizeBlock } from '../../FullSizeBlock';
 import { defaultProps } from '../constants';
-import { BackButtonProps } from '../types';
-import { BackButton as BackButtonView } from '..';
+import { ScoreCounterProps } from '../types';
+import { ScoreCounter as ScoreCounterView } from '..';
 import styles from './index.module.scss';
 
-export const BackButton: Story<BackButtonProps> = (props) => (
+export const ScoreCounter: Story<ScoreCounterProps> = (props) => (
   <FullSizeBlock className={styles.mainWrap} absolute>
-    <BackButtonView {...props} className={styles.backButton} />
+    <div className={styles.wrap}>
+      <ScoreCounterView {...props} />
+    </div>
   </FullSizeBlock>
 );
 
-BackButton.args = defaultProps;
+ScoreCounter.args = defaultProps;
 
 export default {
-  title: 'Components/Back Button',
+  title: 'Components/Score Counter',
 } as Meta;

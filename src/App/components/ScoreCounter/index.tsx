@@ -3,18 +3,18 @@ import cn from 'classnames';
 import { Nullable } from 'src/App/types';
 import { FullSizeBlock } from '../FullSizeBlock';
 import { ReactComponent as Sprite } from './images/sprite.svg';
-import { defaultBorderWidth, defaultWidth } from './constants';
-import { BackButtonProps } from './types';
+import { defaultFontSize, defaultProps, defaultWidth } from './constants';
+import { ScoreCounterProps } from './types';
 import styles from './index.module.scss';
 
-export const BackButton = ({ className, disabled, style: styleProp, ...otherProps }: BackButtonProps) => {
+export const ScoreCounter = (props: ScoreCounterProps) => {
+  const { className, scores, ...otherProps } = { ...defaultProps, ...props };
   const ref = React.useRef<HTMLDivElement>(null);
   const [width, setWidth] = React.useState<Nullable<number>>(null);
   const scaling = width ? width / defaultWidth : 1;
-  const style = React.useMemo(() => ({
-    ...styleProp,
-    borderWidth: `${scaling * defaultBorderWidth}px`,
-  }), [scaling, styleProp]);
+  const scoresStyle = React.useMemo(() => ({
+    fontSize: `${scaling * defaultFontSize}px`,
+  }), [scaling]);
 
   React.useEffect(() => {
     const element = ref.current!;
@@ -23,15 +23,13 @@ export const BackButton = ({ className, disabled, style: styleProp, ...otherProp
     window.addEventListener('resize', calcWidth);
     return () => window.removeEventListener('resize', calcWidth);
   }, []);
-  
+
   return (
-    <FullSizeBlock
-      {...otherProps}
-      ref={ref}
-      style={style}
-      className={cn(styles.main, disabled && styles.main_disabled, className)}
-    >
-      <Sprite />
+    <FullSizeBlock {...otherProps} ref={ref} className={cn(styles.main)}>
+      <FullSizeBlock absolute>
+        <Sprite />
+      </FullSizeBlock>
+      <div style={scoresStyle} className={styles.scores}>{scores}</div>
     </FullSizeBlock>
   );
 };

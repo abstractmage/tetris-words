@@ -1,0 +1,18 @@
+.main {
+  position: relative;
+}
+
+.scores {
+  position: absolute;
+  left: 35.8%;
+  top: 86%;
+  width: 28.3%;
+  height: 28.3%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-weight: 900;
+  color: #000;
+  border-radius: 50%;
+  background: #fff;
+}
