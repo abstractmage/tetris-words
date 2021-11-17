@@ -1,0 +1,24 @@
+.field {
+  position: relative;
+  background-color: #dfdfdf;
+  border-radius: 2rem;
+  width: 57.6rem;
+  height: 57.6rem;
+
+  &_disabled {
+    pointer-events: none;
+  }
+}
+
+.cells {
+  position: relative;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  width: 53.6rem;
+  height: 53.6rem;
+  display: grid;
+  grid-template-columns: repeat(10, 1fr);
+  grid-template-rows: repeat(10, 1fr);
+  gap: 0.4rem;
+}

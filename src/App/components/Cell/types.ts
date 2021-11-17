@@ -1,5 +1,5 @@
 export type CellProps = {
-  children: React.ReactNode;
-  isFilled: boolean;
-  isHovered: boolean;
+  children?: React.ReactNode;
+  isFilled?: boolean;
+  isHovered?: boolean;
 };
