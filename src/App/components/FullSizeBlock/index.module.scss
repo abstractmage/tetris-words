@@ -1,0 +1,10 @@
+.main {
+  width: 100%;
+  height: 100%;
+
+  &_absolute {
+    position: absolute;
+    left: 0;
+    top: 0;
+  }
+}
