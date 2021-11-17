@@ -1,15 +1,14 @@
 import { observer } from "mobx-react";
 // import { useAppContext } from '../../shared/useAppContext';
-import styles from "./index.module.scss";
 import { Field } from "../Field";
 import { Cell } from "../Cell";
+import { Tape } from "../Tape";
+import styles from "./index.module.scss";
 // import { Popup } from "../Popup";
 // import { Fade } from "../Fade";
 
-
 export const GamePage = observer(function GamePage() {
   // const {} = useAppContext();
-
 
   return (
     <div className={styles.main}>
@@ -21,8 +20,7 @@ export const GamePage = observer(function GamePage() {
           })}
         </Field>
       </div>
-      <div className={styles.tapeContainer}>tapeContainer</div>
-
+      <Tape />
       {/* <Fade shown={isVisiblePopup} positonAbsolute>
         <Popup />
       </Fade> */}
