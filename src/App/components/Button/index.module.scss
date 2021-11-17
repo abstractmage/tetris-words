@@ -1,0 +1,51 @@
+.main {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+
+  padding: 1.6rem 4.55rem;
+
+  cursor: pointer;
+  white-space: nowrap;
+  text-transform: uppercase;
+
+  color: #fff;
+  border: none;
+  background: #a258ff;
+  box-shadow: 0rem 0.584615rem 0.876923rem -0.438462rem rgba(0, 0, 0, 0.1),
+    0rem 0.876923rem 2.33846rem -0.292308rem rgba(0, 0, 0, 0.1);
+  border-radius: 4.6rem;
+
+  font-size: 1.8rem;
+  line-height: 1.42;
+
+  transition: color 0.2s, background 0.2s;
+  @media (hover: hover) {
+    &:hover {
+      background-color: #9142f1;
+    }
+  }
+  &_continue, &_break{
+    width: 10rem;
+    height: 7.6rem;
+  }
+}
+
+.image {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  & > svg {
+    width: 100%;
+    height: 100%;
+  }
+  &_break {
+    width: 4.7rem;
+    height: 4.7rem;
+  }
+  &_continue {
+    width: 4.6rem;
+    height: 3rem;
+  }
+}
