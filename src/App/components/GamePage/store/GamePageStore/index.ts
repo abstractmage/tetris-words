@@ -112,7 +112,6 @@ export class GamePageStore {
       }
     });
     this.timer.start(1000);
-    console.log(this);
   }
 
   get tapeSlots() {
@@ -191,8 +190,6 @@ export class GamePageStore {
     cube.on(cubeEventNames.intersectionIn, (data) => {
       cube.setIntersectedSlotId(data.slotId);
       const intersectedEmptyCells = uniq(compact(groupCubes.map((cube) => this.field.cells.find((cell) => cell.uid === cube.intersectedSlotId && cell.cubeId === null))));
-
-      console.log(intersectedEmptyCells, groupCubes);
 
       if (intersectedEmptyCells.length === groupCubes.length) {
         intersectedEmptyCells.forEach((cell) => cell.setHovered(true));
