@@ -14,6 +14,8 @@ import { Dragger } from '../Dragger';
 import { Slot as DraggerSlot } from '../Dragger/components/Slot';
 import { Plate as DraggerPlate } from '../Dragger/components/Plate';
 import { GamePageStore } from './store/GamePageStore';
+import { Fade } from '../Fade';
+import { FullSizeBlock } from '../FullSizeBlock';
 
 export const GamePage = observer(function GamePage() {
   const store = useLocalObservable(() => new GamePageStore());
@@ -24,7 +26,7 @@ export const GamePage = observer(function GamePage() {
       <div className={styles.main}>
         <div className={styles.progressContainer}>
           <div className={styles.scoreCounterContainer}>
-            <ScoreCounter scores={0}/>
+            <ScoreCounter scores={store.progressController.scores}/>
           </div>
         </div>
         <div className={styles.backButtonContainer}>
@@ -58,16 +60,26 @@ export const GamePage = observer(function GamePage() {
               disabled={!cube.dragListening}
               slotId={cube.slotId}
               group={cube.group}
-              Component={Cube}
+              Component={FullSizeBlock}
               afterDragMovingDuration={200}
               componentProps={{
                 className: styles.cube,
-                color: cube.color,
-                children: cube.letter,
-                selected: cube.selected,
-                onMouseDown: cube.handleMouseDown,
-                onMouseEnter: cube.handleMouseEnter,
-                onMouseUp: cube.handleMouseUp,
+                children: (
+                  <Fade
+                    duration={200}
+                    shown={cube.fade.shown}
+                    onShowingEnd={cube.fade.finishShownAnimating}
+                  >
+                    <Cube
+                      color={cube.color}
+                      selected={cube.selected}
+                      children={cube.letter}
+                      onMouseDown={cube.handleMouseDown}
+                      onMouseEnter={cube.handleMouseEnter}
+                      onMouseUp={cube.handleMouseUp}
+                    />
+                  </Fade>
+                ),
               }}
               onIntersectionIn={cube.handleIntersectionIn}
               onIntersectionOut={cube.handleIntersectionOut}

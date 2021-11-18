@@ -7,8 +7,11 @@ import { IntersectionParams } from 'src/App/components/Dragger/components/Plate/
 import { defaultColor, eventNames } from './constants';
 import { EventTypeMap, Options } from './types';
 import { DraggableData } from 'src/App/components/Draggable/types';
+import { Fade } from 'src/App/shared/Fade';
 
 export class Cube {
+  fade = new Fade();
+  
   private eventEmitter = new EventEmitter<EventTypeMap>();
 
   private _uid = uniqueId();

@@ -14,14 +14,16 @@
 .backButtonContainer{
   position: absolute;
   width: 8rem;
-  height: 8.7rem;
+  height: 8rem;
   left: 3rem;
   bottom: 3.7rem;
+  display: flex;
+  align-items: flex-end;
 }
 
 .scoreCounterContainer{
   width: 12rem;
-  height: 13.7rem;
+  height: 12rem;
 }
 
 .fieldContainer {

@@ -57,8 +57,6 @@ export class SelectorHelper {
   private startCubeMouseDownListeners() {
     this.cubes.forEach((cube) => {
       cube.on(cubeEventNames.mousedown, () => {
-        if (cube.dragListening) return;
-
         this.setSelectedCubes([cube]);
         this.stopCubeMouseDownListeners();
         this.startCubeMouseEnterListeners();
@@ -78,6 +76,7 @@ export class SelectorHelper {
           this.stopCubeMouseEnterListeners();
           this.stopFieldMouseUpListener();
           this.startCubeMouseDownListeners();
+          this.eventEmitter.emit(eventNames.selectionEnd, { selectedCubes: this.selectedCubes });
         });
       });
       
@@ -85,6 +84,7 @@ export class SelectorHelper {
         this.stopCubeMouseEnterListeners();
         this.stopFieldMouseUpListener();
         this.startCubeMouseDownListeners();
+        this.eventEmitter.emit(eventNames.selectionEnd, { selectedCubes: this.selectedCubes });
       });
     }
   }
@@ -114,6 +114,9 @@ export class SelectorHelper {
           this.setSelectedCubes(this.selectedCubes.filter((cube) => cube !== lastCube));
         } else if (!selectedCells.includes(nextNeighborCell)) {
           this.setSelectedCubes([...this.selectedCubes, cube]);
+        } else if (selectedCells.includes(nextNeighborCell)) {
+          const nextNeighborCellIndex = selectedCells.indexOf(nextNeighborCell);
+          this.setSelectedCubes(this.selectedCubes.slice(0, nextNeighborCellIndex + 1));
         }
       });
     });
