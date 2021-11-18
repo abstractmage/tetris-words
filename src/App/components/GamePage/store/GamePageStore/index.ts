@@ -9,9 +9,20 @@ import { eventNames as selectorHelperEventNames } from 'src/App/store/SelectorHe
 import { ProgressController } from 'src/App/store/ProgressController';
 import { russianWords } from 'src/App/constants';
 import { colors } from 'src/App/components/Cube/constants';
+import { PopupContinueGame, PopupResultGame } from 'src/App/store/Popups';
 
 export class GamePageStore {
   progressController = new ProgressController();
+
+  popupContinueGame = new PopupContinueGame({
+    onClickBreak: ()=>console.log('break'),
+    onClickContinue: ()=>console.log('continue')
+  });
+
+  popupResultGame = new PopupResultGame({
+    isDisableClickOutside: true,
+    onClickBreak: ()=>console.log('break'),
+  });
 
   private _tapeSlots = range(20).map(() => ({
     uid: uniqueId(),
