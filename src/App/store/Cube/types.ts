@@ -12,6 +12,7 @@ export type EventTypeMap = {
   'intersectionIn': IntersectionInHandler;
   'intersectionOut': IntersectionOutHandler;
   'finishDrag': DraggableEventHandler;
+  'startDrag': DraggableEventHandler;
 };
 
 export type EventType = keyof EventTypeMap;

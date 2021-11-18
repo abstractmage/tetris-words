@@ -7,6 +7,7 @@ export const eventNames: { [eventName in EventType]: eventName } = {
   'mouseup': 'mouseup',
   'intersectionIn': 'intersectionIn',
   'intersectionOut': 'intersectionOut',
+  'startDrag': 'startDrag',
   'finishDrag': 'finishDrag',
 };
 

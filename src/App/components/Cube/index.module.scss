@@ -37,6 +37,14 @@
     transition: opacity 200ms;
   }
 
+  &_hoverable {
+    &:hover {
+      &::after {
+        opacity: 1;
+      }
+    }
+  }
+
   &_hovered {
     &::after {
       opacity: 1;

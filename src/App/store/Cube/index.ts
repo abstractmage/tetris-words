@@ -157,6 +157,10 @@ export class Cube {
     this.eventEmitter.emit(eventNames.intersectionOut, data);
   }
 
+  handleStartDrag(event: DraggableEvent, data: DraggableData) {
+    this.eventEmitter.emit(eventNames.startDrag, event, data);
+  }
+
   handleFinishDrag(event: DraggableEvent, data: DraggableData) {
     this.eventEmitter.emit(eventNames.finishDrag, event, data);
   }
