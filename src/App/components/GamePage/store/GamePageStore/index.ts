@@ -135,10 +135,22 @@ export class GamePageStore {
     return chunk(this.tapeSlots, 5).findIndex((chunk) => chunk.find((tapeSlot) => tapeSlot.uid === tapeSlotUid));
   }
 
+  private getRandomLetterData() {
+    const random = Math.random() * 10;
+
+    for (let i = 0, length = letterScoreDistributions.rus.length; i < length; i++) {
+      if (random < letterScoreDistributions.rus[i].score) {
+        return letterScoreDistributions.rus[i];
+      }
+    }
+
+    return letterScoreDistributions.rus[0];
+  }
+
   private generateFigureCubes(targetTapeSlotChunkIndex: number) {
     const type = sample([1, 2, 3]);
     const length = type === 1 ? 1 : 2;
-    const lettersData = range(length).map(() => sample(letterScoreDistributions.rus)!);
+    const lettersData = range(length).map(() => this.getRandomLetterData());
     const targetTapeSlotChunk = chunk(this.tapeSlots, 5)[targetTapeSlotChunkIndex];
     const figureGroup = uniqueId();
 
@@ -180,6 +192,8 @@ export class GamePageStore {
       cube.setIntersectedSlotId(data.slotId);
       const intersectedEmptyCells = uniq(compact(groupCubes.map((cube) => this.field.cells.find((cell) => cell.uid === cube.intersectedSlotId && cell.cubeId === null))));
 
+      console.log(intersectedEmptyCells, groupCubes);
+
       if (intersectedEmptyCells.length === groupCubes.length) {
         intersectedEmptyCells.forEach((cell) => cell.setHovered(true));
       } else {
@@ -196,7 +210,6 @@ export class GamePageStore {
     });
 
     cube.on(cubeEventNames.finishDrag, () => {
-      
       const intersectedCells = uniq(compact(groupCubes.map((cube) => {
         const cell = this.field.cells.find((cell) => cell.uid === cube.intersectedSlotId);
         return cell;
@@ -226,7 +239,6 @@ export class GamePageStore {
         Promise.resolve().then(() => newCubes.forEach((cube) => cube.fade.show()));
       } else {
         groupCubes.forEach((cube, i) => {
-          intersectedCells[i]?.setCubeId(null);
           cube.setIntersectedSlotId(null);
         });
       }
