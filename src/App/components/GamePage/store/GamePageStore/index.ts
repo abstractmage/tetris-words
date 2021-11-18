@@ -94,7 +94,7 @@ export class GamePageStore {
       if (letterData.score === 10) color = colors['#D73A8F'];
       
       return new Cube({
-        letter: letterData.letter,
+        letter: letterData.letter.toUpperCase(),
         slotId:
         targetTapeSlots[i].uid,
         group: figureGroup,
