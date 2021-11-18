@@ -64,7 +64,6 @@ export class GamePageStore {
     this.selectorHelper.on(selectorHelperEventNames.selectionEnd, async ({ selectedCubes }) => {
       const word = selectedCubes.map((cube) => cube.letter).join('').toLowerCase();
       const found = russianWords.find((w) => w === word);
-      this.timer.stop();
       this.timer.start(1000);
 
       if (found) {
@@ -113,7 +112,6 @@ export class GamePageStore {
       }
     });
     this.timer.start(1000);
-    console.log(this);
   }
 
   get tapeSlots() {
@@ -134,6 +132,18 @@ export class GamePageStore {
 
   private getTapeSlotChunkIndexByTapeSlotUid(tapeSlotUid: string | number ) {
     return chunk(this.tapeSlots, 5).findIndex((chunk) => chunk.find((tapeSlot) => tapeSlot.uid === tapeSlotUid));
+  }
+
+  private getRandomLetterData() {
+    const random = Math.random() * 10;
+
+    for (let i = 0, length = letterScoreDistributions.rus.length; i < length; i++) {
+      if (random < letterScoreDistributions.rus[i].score) {
+        return letterScoreDistributions.rus[i];
+      }
+    }
+
+    return letterScoreDistributions.rus[0];
   }
 
   private generateFigureCubes(targetTapeSlotChunkIndex: number) {
@@ -197,7 +207,6 @@ export class GamePageStore {
     });
 
     cube.on(cubeEventNames.finishDrag, () => {
-      
       const intersectedCells = uniq(compact(groupCubes.map((cube) => {
         const cell = this.field.cells.find((cell) => cell.uid === cube.intersectedSlotId);
         return cell;
@@ -205,7 +214,6 @@ export class GamePageStore {
       const allIntersectedCellsAreEmpty = intersectedCells.every((cell) => cell.cubeId === null);
 
       if (intersectedCells.length === groupCubes.length && allIntersectedCellsAreEmpty) {
-        this.timer.stop();
         const tapeSlotChunkIndex = this.getTapeSlotChunkIndexByTapeSlotUid(cube.slotId);
 
         groupCubes.forEach((cube, i) => {
@@ -228,7 +236,6 @@ export class GamePageStore {
         Promise.resolve().then(() => newCubes.forEach((cube) => cube.fade.show()));
       } else {
         groupCubes.forEach((cube, i) => {
-          intersectedCells[i]?.setCubeId(null);
           cube.setIntersectedSlotId(null);
         });
       }

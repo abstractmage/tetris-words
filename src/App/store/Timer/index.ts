@@ -27,6 +27,8 @@ export class Timer {
   }
 
   start(ms: number) {
+    if (this.intervalId !== null) return;
+
     this.intervalId = window.setInterval(() => {
       this.value += ms;
       this.eventEmitter.emit(eventNames.tick, { value: this.value });
@@ -41,6 +43,7 @@ export class Timer {
   pause() {
     if (this.intervalId) {
       window.clearInterval(this.intervalId);
+      this.intervalId = null;
     }
   }
 }
