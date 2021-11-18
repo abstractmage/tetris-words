@@ -142,6 +142,10 @@ export class Cube {
     this.eventEmitter.emit(eventNames.mouseenter);
   }
 
+  handleMouseUp() {
+    this.eventEmitter.emit(eventNames.mouseup);
+  }
+  
   handleIntersectionIn(data: IntersectionParams) {
     this.eventEmitter.emit(eventNames.intersectionIn, data);
   }

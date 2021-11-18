@@ -17,6 +17,7 @@ export type Options = DragItemOptions & {
   slotId: string | number;
   centered?: boolean;
   intersectionSelector?: string;
+  disabled?: boolean;
   group?: string | number;
   callbacks?: Callbacks;
 };

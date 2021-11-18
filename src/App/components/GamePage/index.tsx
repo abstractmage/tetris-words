@@ -31,7 +31,7 @@ export const GamePage = observer(function GamePage() {
           <BackButton />
           </div>
         <div className={styles.fieldContainer}>
-          <Field>
+          <Field onMouseUp={store.field.handleMouseUp}>
             {store.field.cells.map((cell) => {
               return <DraggerSlot key={cell.uid} id={cell.uid} Component={Cell} isHovered={cell.hovered}>
               </DraggerSlot>;
@@ -64,6 +64,10 @@ export const GamePage = observer(function GamePage() {
                 className: styles.cube,
                 color: cube.color,
                 children: cube.letter,
+                selected: cube.selected,
+                onMouseDown: cube.handleMouseDown,
+                onMouseEnter: cube.handleMouseEnter,
+                onMouseUp: cube.handleMouseUp,
               }}
               onIntersectionIn={cube.handleIntersectionIn}
               onIntersectionOut={cube.handleIntersectionOut}

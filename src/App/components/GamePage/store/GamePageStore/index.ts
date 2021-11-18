@@ -4,6 +4,8 @@ import { Cube } from 'src/App/store/Cube';
 import { Field } from 'src/App/store/Field';
 import { russianAlphabet } from 'src/App/store/ProgressController/constants';
 import { eventNames as cubeEventNames } from 'src/App/store/Cube/constants';
+import { SelectorHelper } from 'src/App/store/SelectorHelper';
+import { eventNames as selectorHelperEventNames } from 'src/App/store/SelectorHelper/constants';
 
 export class GamePageStore {
   private _tapeSlots = range(20).map(() => ({
@@ -19,9 +21,18 @@ export class GamePageStore {
 
   private _field = new Field();
 
+  private selectorHelper = new SelectorHelper();
+
   constructor() {
     makeAutoObservable(this, {}, { autoBind: true });
     this._cubes.forEach((cube) => this.startDragListeners(cube));
+    this.selectorHelper.on(
+      selectorHelperEventNames.selectedCubesUpdated,
+      ({ selectedCubes }) => {
+        this._cubes.forEach((cube) => cube.setSelected(false));
+        selectedCubes.forEach((cube) => cube.setSelected(true));
+      },
+    );
   }
 
   get tapeSlots() {
@@ -92,6 +103,10 @@ export class GamePageStore {
           cube.setSlotId(cube.intersectedSlotId!);
           cube.setIntersectedSlotId(null);
           this.stopDragListeners(cube);
+          this.selectorHelper.startListening({
+            cubes: this._cubes,
+            field: this._field,
+          })
         });
       } else {
         groupCubes.forEach((cube, i) => {

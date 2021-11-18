@@ -19,7 +19,6 @@ export const Plate = observer(function Plate<P extends DefaultPlateComponentProp
 
   const { onStartDrag, onMoveDrag, onFinishDrag } = plateStore.draggableProps;
   const { Component, anchor, componentProps } = plateStore.elementMoverProps;
-
   const plateModel = plateStore.model;
 
   const setRef = React.useCallback(
@@ -47,7 +46,7 @@ export const Plate = observer(function Plate<P extends DefaultPlateComponentProp
           onFinishDrag={onFinishDrag}
         />
       ) : (
-        <Component {...((omit(componentProps, 'bounded', 'withAnimation', 'calculationHelper', 'onMoving', 'onMovingEnd', 'componentProps') as any) as P)} ref={ref} />
+        <Component {...((omit(componentProps, 'disabled', 'bounded', 'withAnimation', 'calculationHelper', 'onMoving', 'onMovingEnd', 'componentProps') as any) as P)} ref={ref} />
       )}
     </PlateStoreContext.Provider>
   );

@@ -1,4 +1,4 @@
-import { last } from 'lodash';
+import { compact, last } from 'lodash';
 import { EventEmitter } from 'src/App/shared/EventEmitter';
 import { Nullable } from 'src/App/types';
 import { Cell } from '../Cell';
@@ -13,8 +13,6 @@ export class SelectorHelper {
   private eventEmitter = new EventEmitter<EventTypeMap>();
 
   private field: Nullable<Field> = null;
-  
-  private cells: Cell[] = [];
   
   private cubes: Cube[] = [];
 
@@ -42,11 +40,10 @@ export class SelectorHelper {
 
   startListening(options: {
     cubes: Cube[];
-    cells: Cell[];
     field: Field;
   }) {
+    this.stopListening();
     this.cubes = options.cubes;
-    this.cells = options.cells;
     this.field = options.field;
     this.startCubeMouseDownListeners();
   }
@@ -60,6 +57,8 @@ export class SelectorHelper {
   private startCubeMouseDownListeners() {
     this.cubes.forEach((cube) => {
       cube.on(cubeEventNames.mousedown, () => {
+        if (cube.dragListening) return;
+
         this.setSelectedCubes([cube]);
         this.stopCubeMouseDownListeners();
         this.startCubeMouseEnterListeners();
@@ -74,6 +73,14 @@ export class SelectorHelper {
 
   private startFieldMouseUpListener() {
     if (this.field) {
+      this.cubes.forEach((cube) => {
+        cube.on(cubeEventNames.mouseup, () => {
+          this.stopCubeMouseEnterListeners();
+          this.stopFieldMouseUpListener();
+          this.startCubeMouseDownListeners();
+        });
+      });
+      
       this.field.on(fieldEventNames.mouseup, () => {
         this.stopCubeMouseEnterListeners();
         this.stopFieldMouseUpListener();
@@ -84,6 +91,7 @@ export class SelectorHelper {
 
   private stopFieldMouseUpListener() {
     if (this.field) {
+      this.cubes.forEach((cube) => cube.removeAllListeners(cubeEventNames.mouseup));
       this.field.removeAllListeners(fieldEventNames.mouseup);
     }
   }
@@ -91,22 +99,20 @@ export class SelectorHelper {
   private startCubeMouseEnterListeners() {
     this.cubes.forEach((cube) => {
       cube.on(cubeEventNames.mouseenter, () => {
-        const currentCell = this.cells.find((cell) => cell.uid === cube.slotId)!;
+        const currentCell = this.field!.cells.find((cell) => cell.uid === cube.slotId)!;
         const prevCube = this.selectedCubes.slice(-2)[0];
         const lastCube = last(this.selectedCubes)!;
-        const prevCell = this.cells.find((_cell) => _cell.uid === prevCube?.slotId)
-        const lastCell = this.cells.find((_cell) => _cell.uid === lastCube.slotId)!;
+        const prevCell = this.field!.cells.find((_cell) => _cell.uid === prevCube?.slotId)
+        const lastCell = this.field!.cells.find((_cell) => _cell.uid === lastCube.slotId)!;
         const neighborCells = this.getNeighborCells(lastCell);
         const nextNeighborCell = neighborCells.find((cell) => cell === currentCell);
-
+        const selectedCells = compact(this.selectedCubes.map((cube) => this.field!.cells.find((cell) => cell.cubeId === cube.uid)));
 
         if (!nextNeighborCell) return;
 
         if (nextNeighborCell === prevCell) {
-          console.log(1);
           this.setSelectedCubes(this.selectedCubes.filter((cube) => cube !== lastCube));
-        } else {
-          console.log(this.selectedCubes, cube);
+        } else if (!selectedCells.includes(nextNeighborCell)) {
           this.setSelectedCubes([...this.selectedCubes, cube]);
         }
       });
@@ -120,7 +126,7 @@ export class SelectorHelper {
   }
 
   private getNeighborCells(cell: Cell) {
-    return this.cells.filter((_cell) =>
+    return this.field!.cells.filter((_cell) =>
       (_cell.point.x === cell.point.x - 1 && _cell.point.y === cell.point.y) ||
       (_cell.point.x === cell.point.x && _cell.point.y === cell.point.y - 1) ||
       (_cell.point.x === cell.point.x + 1 && _cell.point.y === cell.point.y) ||

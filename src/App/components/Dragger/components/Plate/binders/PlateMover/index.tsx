@@ -18,16 +18,14 @@ export const PlateMover = observer(
       onMoving,
       onMovingEnd,
       componentProps,
-      ...otherProps
     } = plateStore.elementMoverProps;
 
     return (
       <ElementMover
-        {...(props as any)}
-        {...(otherProps as any)}
         {...componentProps}
         ref={ref}
         Component={Component}
+        // @ts-ignore
         anchor={anchor}
         translate={translate}
         bounded={bounded}

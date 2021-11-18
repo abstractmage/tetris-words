@@ -11,6 +11,8 @@ import { DraggableEventHandler } from 'src/App/components/Draggable/types';
 export class PlateStore<P extends DefaultPlateComponentProps> {
   private props!: PlateProps<P>;
 
+  private plateModel: PlateModel;
+
   private reactions = {
     slotId: new Reaction({
       expression: () => this.props.slotId,
@@ -108,24 +110,23 @@ export class PlateStore<P extends DefaultPlateComponentProps> {
 
     this.initReactions();
 
-    this.setProps(params.props);
     this.element = params.element;
     this.dragger = params.dragger;
 
-    this.dragger.plates.add(
+    this.setProps(params.props);
+
+    this.plateModel = this.dragger.plates.add(
       new PlateModel({
         id: this.props.id,
         slotId: this.props.slotId,
         centered: this.props.centered,
         group: this.props.group,
+        disabled: this.props.disabled,
         intersectionSelector: this.props.intersectionSelector,
         callbacks: {
           onAfterDragMoving: this.props.onAfterDragMoving,
           onAfterDragMovingEnd: this.props.onAfterDragMovingEnd,
-          onStartDrag: (e, data) => {
-            if (this.props.disabled) return;
-            this.props.onStartDrag?.(e, data);
-          },
+          onStartDrag: this.props.onStartDrag,
           onMoveDrag: this.props.onMoveDrag,
           onFinishDrag: this.props.onFinishDrag,
           onIntersectionIn: this.props.onIntersectionIn,
@@ -143,6 +144,7 @@ export class PlateStore<P extends DefaultPlateComponentProps> {
     this.props = props;
     this.props.state = this.props.state ?? 'default';
     this.props.disabled = this.props.disabled ?? false;
+    this.plateModel?.setDisabled(this.props.disabled);
   }
 
   setElement(element: HTMLElement) {

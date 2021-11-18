@@ -37,6 +37,9 @@ export class DragOperator {
 
   startDrag({ event, data }: DragHandlerParams) {
     const currentPlate = this.plates.findByElement(data.element)!;
+
+    if (currentPlate.disabled) return;
+    
     const currentSlot = this.slots.findById(currentPlate.slotId)!;
     const offset = getOffset(currentSlot.element!, currentPlate.element!);
 

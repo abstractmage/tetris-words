@@ -16,6 +16,8 @@ export class Plate extends DragItem {
 
   intersectionSelector: Nullable<string>;
 
+  disabled = false;
+
   callbacks?: Callbacks;
 
   get intersectionElement() {
@@ -36,6 +38,7 @@ export class Plate extends DragItem {
       slotId: observable,
       inDrag: observable,
       group: observable,
+      disabled: observable,
       intersectionElement: computed,
       startDrag: action.bound,
       finishDrag: action.bound,
@@ -44,6 +47,7 @@ export class Plate extends DragItem {
     });
 
     this.slotId = options.slotId;
+    this.disabled = options.disabled ?? false;
     this.group = options.group;
     this.centered = options.centered;
     this.intersectionSelector = options.intersectionSelector ?? null;
@@ -68,5 +72,9 @@ export class Plate extends DragItem {
 
   setSlotId(slotId: string | number) {
     this.slotId = slotId;
+  }
+
+  setDisabled(disabled: boolean) {
+    this.disabled = disabled;
   }
 }

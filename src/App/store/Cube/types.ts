@@ -3,10 +3,12 @@ import { IntersectionInHandler, IntersectionOutHandler } from 'src/App/component
 
 export type MouseDownHandler = () => void;
 export type MouseEnterHandler = () => void;
+export type MouseUpHandler = () => void;
 
 export type EventTypeMap = {
   'mousedown': MouseDownHandler;
   'mouseenter': MouseEnterHandler;
+  'mouseup': MouseUpHandler;
   'intersectionIn': IntersectionInHandler;
   'intersectionOut': IntersectionOutHandler;
   'finishDrag': DraggableEventHandler;
