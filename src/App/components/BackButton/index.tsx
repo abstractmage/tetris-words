@@ -7,7 +7,7 @@ import { defaultBorderWidth, defaultWidth } from './constants';
 import { BackButtonProps } from './types';
 import styles from './index.module.scss';
 
-export const BackButton = ({ className, disabled, style: styleProp, ...otherProps }: BackButtonProps) => {
+export const BackButton = ({ className, disabled, style: styleProp, onClick, ...otherProps }: BackButtonProps) => {
   const ref = React.useRef<HTMLDivElement>(null);
   const [width, setWidth] = React.useState<Nullable<number>>(null);
   const scaling = width ? width / defaultWidth : 1;
@@ -30,6 +30,7 @@ export const BackButton = ({ className, disabled, style: styleProp, ...otherProp
       ref={ref}
       style={style}
       className={cn(styles.main, disabled && styles.main_disabled, className)}
+      onClick={onClick}
     >
       <Sprite />
     </FullSizeBlock>

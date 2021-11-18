@@ -25,7 +25,6 @@ export class GamePageStore {
   });
 
   popupResultGame = new PopupResultGame({
-    isDisableClickOutside: true,
     onClickNewGame: ()=>console.log('break'),
   });
   time = 0;
