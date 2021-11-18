@@ -1,26 +1,29 @@
 {
   "files": {
-    "main.css": "/tetris-words/static/css/main.0da1e792.chunk.css",
-    "main.js": "/tetris-words/static/js/main.8d1e3db7.chunk.js",
-    "main.js.map": "/tetris-words/static/js/main.8d1e3db7.chunk.js.map",
-    "runtime-main.js": "/tetris-words/static/js/runtime-main.5e05edcd.js",
-    "runtime-main.js.map": "/tetris-words/static/js/runtime-main.5e05edcd.js.map",
-    "static/js/2.9576be66.chunk.js": "/tetris-words/static/js/2.9576be66.chunk.js",
-    "static/js/2.9576be66.chunk.js.map": "/tetris-words/static/js/2.9576be66.chunk.js.map",
-    "static/js/3.e6f61b76.chunk.js": "/tetris-words/static/js/3.e6f61b76.chunk.js",
-    "static/js/3.e6f61b76.chunk.js.map": "/tetris-words/static/js/3.e6f61b76.chunk.js.map",
+    "main.css": "/tetris-words/static/css/main.38517ecf.chunk.css",
+    "main.js": "/tetris-words/static/js/main.27c316c1.chunk.js",
+    "main.js.map": "/tetris-words/static/js/main.27c316c1.chunk.js.map",
+    "runtime-main.js": "/tetris-words/static/js/runtime-main.f4b58098.js",
+    "runtime-main.js.map": "/tetris-words/static/js/runtime-main.f4b58098.js.map",
+    "static/js/2.9c692545.chunk.js": "/tetris-words/static/js/2.9c692545.chunk.js",
+    "static/js/2.9c692545.chunk.js.map": "/tetris-words/static/js/2.9c692545.chunk.js.map",
+    "static/js/3.3a84e7cb.chunk.js": "/tetris-words/static/js/3.3a84e7cb.chunk.js",
+    "static/js/3.3a84e7cb.chunk.js.map": "/tetris-words/static/js/3.3a84e7cb.chunk.js.map",
     "index.html": "/tetris-words/index.html",
-    "static/css/main.0da1e792.chunk.css.map": "/tetris-words/static/css/main.0da1e792.chunk.css.map",
-    "static/js/2.9576be66.chunk.js.LICENSE.txt": "/tetris-words/static/js/2.9576be66.chunk.js.LICENSE.txt",
+    "static/css/main.38517ecf.chunk.css.map": "/tetris-words/static/css/main.38517ecf.chunk.css.map",
+    "static/js/2.9c692545.chunk.js.LICENSE.txt": "/tetris-words/static/js/2.9c692545.chunk.js.LICENSE.txt",
     "static/media/index.scss": "/tetris-words/static/media/Nunito-SemiBoldItalic.0be5b877.ttf",
+    "static/media/arrow.ff08ed27.svg": "/tetris-words/static/media/arrow.ff08ed27.svg",
     "static/media/index.module.scss": "/tetris-words/static/media/back.784050e7.svg",
+    "static/media/cross.39ab6e75.svg": "/tetris-words/static/media/cross.39ab6e75.svg",
     "static/media/sprite.205334e7.svg": "/tetris-words/static/media/sprite.205334e7.svg",
-    "static/media/sprite.b53005ef.svg": "/tetris-words/static/media/sprite.b53005ef.svg"
+    "static/media/sprite.b53005ef.svg": "/tetris-words/static/media/sprite.b53005ef.svg",
+    "static/media/sprite.c2f4836e.svg": "/tetris-words/static/media/sprite.c2f4836e.svg"
   },
   "entrypoints": [
-    "static/js/runtime-main.5e05edcd.js",
-    "static/js/2.9576be66.chunk.js",
-    "static/css/main.0da1e792.chunk.css",
-    "static/js/main.8d1e3db7.chunk.js"
+    "static/js/runtime-main.f4b58098.js",
+    "static/js/2.9c692545.chunk.js",
+    "static/css/main.38517ecf.chunk.css",
+    "static/js/main.27c316c1.chunk.js"
   ]
 }
