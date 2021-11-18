@@ -11,6 +11,7 @@ export const Cube = React.forwardRef<HTMLDivElement, CubeProps>(function Cube(pr
   const {
     color,
     children,
+    className,
     disabled,
     selected,
     hovered,
@@ -47,21 +48,24 @@ export const Cube = React.forwardRef<HTMLDivElement, CubeProps>(function Cube(pr
         selected && styles.main_selected,
         hovered && styles.main_hovered,
         disabled && styles.main_disabled,
+        className,
       )}
     >
-      <FullSizeBlock
-        className={styles.background}
-        style={{
-          backgroundColor: color,
-          boxShadow: `${scaling * 2}px ${scaling * 2}px ${scaling * 2}px rgba(34, 0, 135, 0.25)`,
-        }}
-        absolute
-      />
-      <FullSizeBlock
-        className={styles.content}
-        absolute
-      >
-        {children}
+      <FullSizeBlock className={styles.scaleWrap}>
+        <FullSizeBlock
+          className={styles.background}
+          style={{
+            backgroundColor: color,
+            boxShadow: `${scaling * 2}px ${scaling * 2}px ${scaling * 2}px rgba(34, 0, 135, 0.25)`,
+          }}
+          absolute
+        />
+        <FullSizeBlock
+          className={styles.content}
+          absolute
+        >
+          {children}
+        </FullSizeBlock>
       </FullSizeBlock>
     </FullSizeBlock>
   );

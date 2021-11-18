@@ -1,0 +1,42 @@
+.wrapper {
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+}
+
+.innerWrapper {
+  width: 85rem;
+  display: flex;
+  justify-content: space-between;
+  align-content: space-between;
+  flex-wrap: wrap;
+}
+
+.innerWrapperSecond {
+  @extend .innerWrapper;
+
+  margin-top: 10rem;
+}
+
+.slot {
+  width: 20rem;
+  height: 20rem;
+  background: rgba(0, 0, 255, 0.3);
+}
+
+.plate {
+  position: absolute;
+  width: 20rem;
+  height: 20rem;
+  background: rgba(255, 0, 0, 0.8);
+
+  &_inDrag {
+    z-index: 5;
+  }
+}

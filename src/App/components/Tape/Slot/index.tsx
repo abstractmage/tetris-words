@@ -4,10 +4,10 @@ import { SlotProps } from './types';
 import styles from './index.module.scss';
 
 export const Slot = React.forwardRef<HTMLDivElement, SlotProps>(function Slot(props: SlotProps, ref) {
-  const { children, type } = props;
+  const { children } = props;
 
   return (
-    <div className={cn(styles.main, styles[`main_type_${type}`])} ref={ref}>
+    <div className={cn(styles.main,)} ref={ref}>
       {children}
     </div>
   );

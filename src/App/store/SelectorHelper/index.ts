@@ -91,11 +91,11 @@ export class SelectorHelper {
   private startCubeMouseEnterListeners() {
     this.cubes.forEach((cube) => {
       cube.on(cubeEventNames.mouseenter, () => {
-        const currentCell = this.cells.find((cell) => cell.element === cube.slot)!;
+        const currentCell = this.cells.find((cell) => cell.uid === cube.slotId)!;
         const prevCube = this.selectedCubes.slice(-2)[0];
         const lastCube = last(this.selectedCubes)!;
-        const prevCell = this.cells.find((_cell) => _cell.element === prevCube?.slot)
-        const lastCell = this.cells.find((_cell) => _cell.element === lastCube.slot)!;
+        const prevCell = this.cells.find((_cell) => _cell.uid === prevCube?.slotId)
+        const lastCell = this.cells.find((_cell) => _cell.uid === lastCube.slotId)!;
         const neighborCells = this.getNeighborCells(lastCell);
         const nextNeighborCell = neighborCells.find((cell) => cell === currentCell);
 

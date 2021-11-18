@@ -1,11 +1,17 @@
 import { makeAutoObservable } from 'mobx';
+import { uniqueId } from 'lodash';
+import { DraggableEvent } from 'react-draggable';
 import { EventEmitter } from 'src/App/shared/EventEmitter';
 import { Nullable } from 'src/App/types';
+import { IntersectionParams } from 'src/App/components/Dragger/components/Plate/types';
 import { defaultColor, eventNames } from './constants';
 import { EventTypeMap, Options } from './types';
+import { DraggableData } from 'src/App/components/Draggable/types';
 
 export class Cube {
   private eventEmitter = new EventEmitter<EventTypeMap>();
+
+  private _uid = uniqueId();
   
   private _letter: string;
 
@@ -17,16 +23,33 @@ export class Cube {
 
   private _disabled = false;
 
-  private _element: Nullable<HTMLElement> = null;
+  private _dragListening = false;
 
-  private _slot: Nullable<HTMLElement> = null;
+  private _element: Nullable<HTMLElement> = null;
+  
+  private _slotId: string | number;
+
+  private _intersectedSlotId: Nullable<string | number> = null;
+
+  private _group: string | number;
 
   constructor(options: Options) {
     makeAutoObservable(this, {}, { autoBind: true });
     this._letter = options.letter;
     this._color = options.color ?? defaultColor;
+    this._slotId = options.slotId;
+    this._group = options.group ?? uniqueId();
+
   }
 
+  get uid() {
+    return this._uid;
+  }
+
+  get group() {
+    return this._group;
+  }
+  
   get letter() {
     return this._letter;
   }
@@ -43,8 +66,8 @@ export class Cube {
     return this._hovered;
   }
 
-  get slot() {
-    return this._slot;
+  get slotId() {
+    return this._slotId;
   }
 
   get selected() {
@@ -53,6 +76,14 @@ export class Cube {
 
   get disabled() {
     return this._disabled;
+  }
+
+  get intersectedSlotId() {
+    return this._intersectedSlotId;
+  }
+
+  get dragListening() {
+    return this._dragListening;
   }
 
   on<T extends keyof EventTypeMap>(eventType: T, handler: EventTypeMap[T]) {
@@ -79,8 +110,8 @@ export class Cube {
     this._hovered = hovered;
   }
 
-  setSlot(slot: HTMLElement) {
-    this._slot = slot;
+  setSlotId(slotId: string | number) {
+    this._slotId = slotId;
   }
 
   setSelected(selected: boolean) {
@@ -91,11 +122,35 @@ export class Cube {
     this._disabled = disabled;
   }
 
+  setGroup(group: string | number) {
+    this._group = group;
+  }
+
+  setIntersectedSlotId(intersectedSlotId: Nullable<string | number>) {
+    this._intersectedSlotId = intersectedSlotId;
+  }
+
+  setDragListening(dragListening: boolean) {
+    this._dragListening = dragListening;
+  }
+
   handleMouseDown() {
     this.eventEmitter.emit(eventNames.mousedown);
   }
 
   handleMouseEnter() {
     this.eventEmitter.emit(eventNames.mouseenter);
+  }
+
+  handleIntersectionIn(data: IntersectionParams) {
+    this.eventEmitter.emit(eventNames.intersectionIn, data);
+  }
+
+  handleIntersectionOut(data: IntersectionParams) {
+    this.eventEmitter.emit(eventNames.intersectionOut, data);
+  }
+
+  handleFinishDrag(event: DraggableEvent, data: DraggableData) {
+    this.eventEmitter.emit(eventNames.finishDrag, event, data);
   }
 }

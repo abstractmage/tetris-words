@@ -134,3 +134,5 @@ export const letterScoreDistributions = {
     },
   ],
 };
+
+export const russianAlphabet = letterScoreDistributions.rus.map((item) => item.letter);

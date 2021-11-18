@@ -19,7 +19,6 @@ export const Cell: Story<CellProps> = (props) => (
 );
 
 Cell.args = {
-  isFilled: true,
   isHovered: false,
 };
 

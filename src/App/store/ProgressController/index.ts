@@ -1,5 +1,5 @@
 import { makeAutoObservable } from 'mobx';
-import { letterScoreDistributions } from "./letterScoreDistributions";
+import { letterScoreDistributions } from "./constants";
 
 export class ProgressController {
   private _words: string[] = [];
