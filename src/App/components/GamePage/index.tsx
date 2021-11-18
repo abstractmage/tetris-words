@@ -31,7 +31,7 @@ export const GamePage = observer(function GamePage() {
       </div>
       <Tape />
       {/* <Fade shown={isVisiblePopup} positonAbsolute>
-        <Popup />
+        <Popup type={"resultGame"}/>
       </Fade> */}
     </div>
   );

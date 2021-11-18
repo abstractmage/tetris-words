@@ -1,0 +1,105 @@
+.popupContent {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  display: grid;
+  grid-template-columns: 1fr;
+  grid-template-rows: 3fr 1fr;
+  grid-template-areas:
+    "text"
+    "buttons";
+}
+
+.textWrap {
+  grid-area: text;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.container {
+  width: 100%;
+  height: 100%;
+  display: grid;
+  font-size: 2.4rem;
+  line-height: 1.37;
+  color: #001356;
+  &_result{
+    grid-template-rows: 1fr 1fr 4fr;
+    grid-template-columns: 1fr 1fr;
+    grid-template-areas:
+      "tabs tabs"
+      "titleWords ."
+      "words words"
+      "scores .";
+  }
+  &_table{
+    grid-template-rows: 1fr 5fr;
+    grid-template-columns: 1fr 1fr;
+    grid-template-areas:
+      "tabs tabs"
+      "letters letters"
+      "letters letters"
+      "letters letters";
+  }
+}
+
+.tabs {
+  grid-area: tabs;
+  display: flex;
+}
+
+.tab {
+  position: relative;
+  padding: 1rem;
+  font-weight: 700;
+  color: #001356;
+  background-color: transparent;
+  margin-right: 1rem;
+  border-radius: 1rem;
+  transition: background-color 0.3s;
+  cursor: pointer;
+  &::after {
+    position: absolute;
+    left: 50%;
+    transform: translateX(-50%);
+    content: "";
+    display: block;
+    width: 10rem;
+
+    border-bottom: 0.1rem solid #001356;
+  }
+  &::last-child {
+    margin-right: 0rem;
+  }
+  &:hover {
+    color: #fff;
+    background-color: #a258ff;
+    &::after {
+      border: 0.1rem solid transparent;
+    }
+  }
+}
+
+.tabActive {
+  color: #fff;
+  background-color: #a258ff;
+  &::after {
+    border: 0.1rem solid transparent;
+  }
+}
+
+.buttonsWrap {
+  grid-area: buttons;
+  display: flex;
+  justify-content: center;
+  width: 100%;
+}
+
+.btn {
+  position: relative;
+  margin-right: 6rem;
+  &:last-child {
+    margin-right: 0;
+  }
+}
