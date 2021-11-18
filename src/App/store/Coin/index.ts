@@ -1,14 +1,20 @@
+import { uniqueId } from 'lodash';
+import { makeAutoObservable } from 'mobx';
 import { EventEmitter } from 'src/App/shared/EventEmitter';
-import { Nullable } from 'src/App/types';
 import { eventNames } from './constants';
 import { EventTypeMap } from './types';
 
-export class Timer {
+export class Coin {
+  anchor: HTMLElement;
+
+  uid = uniqueId();
+
   private eventEmitter = new EventEmitter<EventTypeMap>();
-
-  private intervalId: Nullable<number> = null;
-
-  private value = 0;
+  
+  constructor(options: { anchor: HTMLElement }) {
+    makeAutoObservable(this, {}, { autoBind: true });
+    this.anchor = options.anchor;
+  }
 
   on<T extends keyof EventTypeMap>(eventType: T, handler: EventTypeMap[T]) {
     this.eventEmitter.on(eventType, handler);
@@ -26,21 +32,11 @@ export class Timer {
     this.eventEmitter.removeAllListeners(eventType);
   }
 
-  start(ms: number) {
-    this.intervalId = window.setInterval(() => {
-      this.value += ms;
-      this.eventEmitter.emit(eventNames.tick, { value: this.value });
-    }, ms);
+  setAnchor(anchor: HTMLElement) {
+    this.anchor = anchor;
   }
 
-  stop() {
-    this.value = 0;
-    this.pause();
-  }
-
-  pause() {
-    if (this.intervalId) {
-      window.clearInterval(this.intervalId);
-    }
+  handleMovingEnd() {
+    this.eventEmitter.emit(eventNames.movingEnd);
   }
 }

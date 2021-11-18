@@ -21,8 +21,22 @@
 }
 
 .scoreCounterContainer{
+  position: relative;
   width: 12rem;
   height: 12rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.scoreCoinWrap {
+  position: absolute;
+  width: 5rem;
+  height: 5rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 10;
 }
 
 .fieldContainer {

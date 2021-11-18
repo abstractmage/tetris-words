@@ -8,22 +8,26 @@ import { Tape } from "../Tape";
 import styles from "./index.module.scss";
 import { ScoreCounter } from "../ScoreCounter";
 import { BackButton } from "../BackButton";
-import { Cube } from "../Cube";
-import { Div } from "../Div";
-import { Dragger } from "../Dragger";
-import { Slot as DraggerSlot } from "../Dragger/components/Slot";
-import { Plate as DraggerPlate } from "../Dragger/components/Plate";
-import { GamePageStore } from "./store/GamePageStore";
-import { Fade } from "../Fade";
-import { FullSizeBlock } from "../FullSizeBlock";
 import { PopupContinueGame } from "../PopupContinueGame";
 import { PopupResultGame } from "../PopupResultGame";
+import { Cube } from '../Cube';
+import { Div } from '../Div';
+import { Dragger } from '../Dragger';
+import { Slot as DraggerSlot } from '../Dragger/components/Slot';
+import { Plate as DraggerPlate } from '../Dragger/components/Plate';
+import { GamePageStore } from './store/GamePageStore';
+import { Fade } from '../Fade';
+import { FullSizeBlock } from '../FullSizeBlock';
+import { Coin } from '../Coin';
+import { ElementMover } from '../ElementMover';
+import { calcCoinMovingPosition } from './helpers/calcCoinMovingPosition';
 
 export const GamePage = observer(function GamePage() {
   const store = useLocalObservable(() => new GamePageStore());
   const tapeSlots = React.useMemo(() => chunk(store.tapeSlots, 5), [store.tapeSlots]);
-  const timerValue = (20000 - store.time) / 1000;
+  const timerValue = (15000 - store.time) / 1000;
   const { popupContinueGame, popupResultGame, progressController } = store
+
   return (
     <>
        <Dragger>
@@ -31,6 +35,7 @@ export const GamePage = observer(function GamePage() {
         <div className={styles.progressContainer}>
           <div className={styles.scoreCounterContainer}>
             <ScoreCounter scores={store.progressController.scores}/>
+            <div ref={store.setCoinFinishAnchor} className={styles.scoreCoinWrap} />
           </div>
         </div>
         <div className={styles.backButtonContainer}>
@@ -39,8 +44,14 @@ export const GamePage = observer(function GamePage() {
         <div className={styles.fieldContainer}>
           <Field onMouseUp={store.field.handleMouseUp}>
             {store.field.cells.map((cell) => {
-              return <DraggerSlot key={cell.uid} id={cell.uid} Component={Cell} isHovered={cell.hovered}>
-              </DraggerSlot>;
+              return (
+                <DraggerSlot
+                  key={cell.uid}
+                  id={cell.uid}
+                  Component={Cell}
+                  isHovered={cell.hovered}
+                />
+              );
             })}
           </Field>
         </div>
@@ -57,7 +68,13 @@ export const GamePage = observer(function GamePage() {
               ))}
             </div>
           ))}
-          <Fade shown={timerValue < 6} className={styles.timer}>{timerValue}</Fade>
+          <Fade
+            shown={timerValue < 6}
+            duration={200}
+            className={styles.timer}
+          >
+            {timerValue < 6 ? timerValue : 0}
+          </Fade>
           {store.cubes.map((cube) => (
             <DraggerPlate
               key={cube.uid}
@@ -71,6 +88,7 @@ export const GamePage = observer(function GamePage() {
                 className: styles.cube,
                 children: (
                   <Fade
+                    ref={(element) => element && cube.loadElement(element)}
                     duration={200}
                     shown={cube.fade.shown}
                     onShowingEnd={cube.fade.finishShownAnimating}
@@ -94,6 +112,18 @@ export const GamePage = observer(function GamePage() {
           ))}
         </Tape>
       </div>
+      {store.coins.map((coin) => (
+        <ElementMover
+          key={coin.uid}
+          anchor={coin.anchor}
+          Component={Div}
+          className={styles.scoreCoinWrap}
+          calculationHelper={calcCoinMovingPosition}
+          onMovingEnd={coin.handleMovingEnd}
+        >
+          <Coin />
+        </ElementMover>
+      ))}
     </Dragger>
       <Fade
         shown={popupContinueGame.isVisible}

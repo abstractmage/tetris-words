@@ -12,6 +12,9 @@ import { colors } from 'src/App/components/Cube/constants';
 import { PopupContinueGame, PopupResultGame } from 'src/App/store/Popups';
 import { Timer } from 'src/App/store/Timer';
 import { eventNames as timerEventNames } from 'src/App/store/Timer/constants';
+import { Coin } from 'src/App/store/Coin';
+import { eventNames as coinEventNames } from 'src/App/store/Coin/constants';
+import { Nullable } from 'src/App/types';
 
 export class GamePageStore {
   progressController = new ProgressController();
@@ -26,6 +29,10 @@ export class GamePageStore {
     onClickBreak: ()=>console.log('break'),
   });
   time = 0;
+
+  coins: Coin[] = [];
+
+  coinFinishAnchor: Nullable<HTMLElement> = null;
 
   private _tapeSlots = range(20).map(() => ({
     uid: uniqueId(),
@@ -52,16 +59,17 @@ export class GamePageStore {
       ({ selectedCubes }) => {
         this._cubes.forEach((cube) => cube.setSelected(false));
         selectedCubes.forEach((cube) => cube.setSelected(true));
-        this.timer.stop();
-        this.setTime(0);
+        this.timer.pause();
       },
     );
-    this.selectorHelper.on(selectorHelperEventNames.selectionEnd, ({ selectedCubes }) => {
+    this.selectorHelper.on(selectorHelperEventNames.selectionEnd, async ({ selectedCubes }) => {
       const word = selectedCubes.map((cube) => cube.letter).join('').toLowerCase();
       const found = russianWords.find((w) => w === word);
+      this.timer.stop();
       this.timer.start(1000);
 
       if (found) {
+        await this.launchCoin(selectedCubes[0].element!.parentElement!, this.coinFinishAnchor!);
         this.progressController.collectWord(word);
         Promise.all(selectedCubes.map((cube) => cube.fade.hide())).then(() => {
           const selectedCells = compact(selectedCubes.map((cube) => this.field.cells.find((cell) => cell.uid === cube.slotId)));
@@ -75,7 +83,7 @@ export class GamePageStore {
     this.timer.on(timerEventNames.tick, ({ value }) => {
       this.setTime(value);
 
-      if (value === 20000) {
+      if (value === 15000) {
         this.timer.stop();
         this.setTime(0);
 
@@ -121,6 +129,10 @@ export class GamePageStore {
     return this._cubes;
   }
 
+  setCoinFinishAnchor(element: Nullable<HTMLElement>) {
+    this.coinFinishAnchor = element;
+  }
+
   private getTapeSlotChunkIndexByTapeSlotUid(tapeSlotUid: string | number ) {
     return chunk(this.tapeSlots, 5).findIndex((chunk) => chunk.find((tapeSlot) => tapeSlot.uid === tapeSlotUid));
   }
@@ -163,8 +175,7 @@ export class GamePageStore {
     cube.setDragListening(true);
 
     cube.on(cubeEventNames.startDrag, () => {
-      this.timer.stop();
-      this.setTime(0);
+      this.timer.pause();
     });
     
     cube.on(cubeEventNames.intersectionIn, (data) => {
@@ -187,7 +198,6 @@ export class GamePageStore {
     });
 
     cube.on(cubeEventNames.finishDrag, () => {
-      this.timer.start(1000);
       
       const intersectedCells = uniq(compact(groupCubes.map((cube) => {
         const cell = this.field.cells.find((cell) => cell.uid === cube.intersectedSlotId);
@@ -196,6 +206,7 @@ export class GamePageStore {
       const allIntersectedCellsAreEmpty = intersectedCells.every((cell) => cell.cubeId === null);
 
       if (intersectedCells.length === groupCubes.length && allIntersectedCellsAreEmpty) {
+        this.timer.stop();
         const tapeSlotChunkIndex = this.getTapeSlotChunkIndexByTapeSlotUid(cube.slotId);
 
         groupCubes.forEach((cube, i) => {
@@ -222,6 +233,8 @@ export class GamePageStore {
           cube.setIntersectedSlotId(null);
         });
       }
+
+      this.timer.start(1000);
     });
   }
 
@@ -238,5 +251,18 @@ export class GamePageStore {
 
   private setTime(time: number) {
     this.time = time;
+  }
+
+  private setCoins(coins: Coin[]) {
+    this.coins = coins;
+  }
+
+  private async launchCoin(startAnchor: HTMLElement, finishAnchor: HTMLElement) {
+    const coin = new Coin({ anchor: startAnchor });
+    this.coins.push(coin);
+    await Promise.resolve();
+    coin.setAnchor(finishAnchor);
+    await new Promise<void>((resolve) => coin.once(coinEventNames.movingEnd, resolve));
+    this.setCoins(this.coins.filter((c) => c !== coin));
   }
 }
