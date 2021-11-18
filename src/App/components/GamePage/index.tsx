@@ -39,7 +39,7 @@ export const GamePage = observer(function GamePage() {
           </div>
         </div>
         <div className={styles.backButtonContainer}>
-          <BackButton />
+          <BackButton onClick={popupResultGame.show}/>
           </div>
         <div className={styles.fieldContainer}>
           <Field onMouseUp={store.field.handleMouseUp}>
