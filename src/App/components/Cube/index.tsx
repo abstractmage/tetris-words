@@ -15,6 +15,7 @@ export const Cube = React.forwardRef<HTMLDivElement, CubeProps>(function Cube(pr
     disabled,
     selected,
     hovered,
+    hoverable,
     style: styleProp,
     ...otherProps
   } = {
@@ -46,6 +47,7 @@ export const Cube = React.forwardRef<HTMLDivElement, CubeProps>(function Cube(pr
       className={cn(
         styles.main,
         selected && styles.main_selected,
+        hoverable && styles.main_hoverable,
         hovered && styles.main_hovered,
         disabled && styles.main_disabled,
         className,

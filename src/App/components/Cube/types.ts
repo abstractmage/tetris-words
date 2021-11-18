@@ -5,4 +5,5 @@ export type CubeProps = React.HTMLAttributes<HTMLDivElement> & {
   disabled?: boolean;
   selected?: boolean;
   hovered?: boolean;
+  hoverable?: boolean;
 };

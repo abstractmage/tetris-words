@@ -17,4 +17,5 @@ export const defaultProps = {
   disabled: false,
   hovered: false,
   selected: false,
+  hoverable: false,
 };

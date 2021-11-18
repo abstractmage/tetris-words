@@ -20,6 +20,7 @@ import { FullSizeBlock } from '../FullSizeBlock';
 export const GamePage = observer(function GamePage() {
   const store = useLocalObservable(() => new GamePageStore());
   const tapeSlots = React.useMemo(() => chunk(store.tapeSlots, 5), [store.tapeSlots]);
+  const timerValue = (20000 - store.time) / 1000;
 
   return (
     <Dragger>
@@ -53,6 +54,7 @@ export const GamePage = observer(function GamePage() {
               ))}
             </div>
           ))}
+          <Fade shown={timerValue < 6} className={styles.timer}>{timerValue}</Fade>
           {store.cubes.map((cube) => (
             <DraggerPlate
               key={cube.uid}
@@ -83,6 +85,7 @@ export const GamePage = observer(function GamePage() {
               }}
               onIntersectionIn={cube.handleIntersectionIn}
               onIntersectionOut={cube.handleIntersectionOut}
+              onStartDrag={cube.handleStartDrag}
               onFinishDrag={cube.handleFinishDrag}
             />
           ))}

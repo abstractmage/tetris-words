@@ -9,9 +9,13 @@ import { eventNames as selectorHelperEventNames } from 'src/App/store/SelectorHe
 import { ProgressController } from 'src/App/store/ProgressController';
 import { russianWords } from 'src/App/constants';
 import { colors } from 'src/App/components/Cube/constants';
+import { Timer } from 'src/App/store/Timer';
+import { eventNames as timerEventNames } from 'src/App/store/Timer/constants';
 
 export class GamePageStore {
   progressController = new ProgressController();
+
+  time = 0;
 
   private _tapeSlots = range(20).map(() => ({
     uid: uniqueId(),
@@ -28,6 +32,8 @@ export class GamePageStore {
 
   private selectorHelper = new SelectorHelper();
 
+  private timer = new Timer();
+
   constructor() {
     makeAutoObservable(this, {}, { autoBind: true });
     this._cubes.forEach((cube) => this.startDragListeners(cube));
@@ -36,11 +42,14 @@ export class GamePageStore {
       ({ selectedCubes }) => {
         this._cubes.forEach((cube) => cube.setSelected(false));
         selectedCubes.forEach((cube) => cube.setSelected(true));
+        this.timer.stop();
+        this.setTime(0);
       },
     );
     this.selectorHelper.on(selectorHelperEventNames.selectionEnd, ({ selectedCubes }) => {
       const word = selectedCubes.map((cube) => cube.letter).join('').toLowerCase();
       const found = russianWords.find((w) => w === word);
+      this.timer.start(1000);
 
       if (found) {
         this.progressController.collectWord(word);
@@ -53,6 +62,40 @@ export class GamePageStore {
         selectedCubes.forEach((cube) => cube.setSelected(false));
       }
     });
+    this.timer.on(timerEventNames.tick, ({ value }) => {
+      this.setTime(value);
+
+      if (value === 20000) {
+        this.timer.stop();
+        this.setTime(0);
+
+        const draggableCubes = this._cubes.filter((cube) => cube.dragListening);
+        Promise.all(draggableCubes.map(async (cube) => {
+          cube.setDragListening(false);
+          await cube.fade.hide();
+        })).then(() => {
+          const newCubes = [
+            ...this.generateFigureCubes(0),
+            ...this.generateFigureCubes(1),
+            ...this.generateFigureCubes(2),
+            ...this.generateFigureCubes(3),
+          ];
+          newCubes.forEach((cube) => cube.fade.hideInstantly());
+          this.setCubes(difference(this._cubes, draggableCubes));
+          this.setCubes([...this._cubes, ...newCubes]);
+
+          Promise.all(newCubes.map((cube) => {
+            return cube.fade.show().then(() => {
+              cube.setDragListening(true);
+              this.startDragListeners(cube);
+            });
+          })).then(() => {
+            this.timer.start(1000);
+          });
+        });
+      }
+    });
+    this.timer.start(1000);
     console.log(this);
   }
 
@@ -108,6 +151,11 @@ export class GamePageStore {
   private startDragListeners(cube: Cube) {
     const groupCubes = this._cubes.filter((_cube) => _cube.group === cube.group);
     cube.setDragListening(true);
+
+    cube.on(cubeEventNames.startDrag, () => {
+      this.timer.stop();
+      this.setTime(0);
+    });
     
     cube.on(cubeEventNames.intersectionIn, (data) => {
       cube.setIntersectedSlotId(data.slotId);
@@ -129,6 +177,8 @@ export class GamePageStore {
     });
 
     cube.on(cubeEventNames.finishDrag, () => {
+      this.timer.start(1000);
+      
       const intersectedCells = uniq(compact(groupCubes.map((cube) => {
         const cell = this.field.cells.find((cell) => cell.uid === cube.intersectedSlotId);
         return cell;
@@ -174,5 +224,9 @@ export class GamePageStore {
 
   private setCubes(cubes: Cube[]) {
     this._cubes = cubes;
+  }
+
+  private setTime(time: number) {
+    this.time = time;
   }
 }
