@@ -1,13 +1,13 @@
 import cn from "classnames";
-import { useState } from "react";
+import { memo, useState } from "react";
 import classes from "./index.module.scss";
 import { Button } from "../../Button";
 import { ContentResultGameProps } from "./types";
 import { TableLetterScore } from "./TableLetterScore";
 import { TableResult } from "./TableResult";
 
-export const ContentResultGame = (props: ContentResultGameProps) => {
-  const { onClickBreak, words, scores } = props;
+export const ContentResultGame = memo((props: ContentResultGameProps) => {
+  const { onClickBreak, onClickContinue, words, scores } = props;
   const [isVisibleResult, setVisibleResult] = useState(true);
 
   return (
@@ -26,7 +26,7 @@ export const ContentResultGame = (props: ContentResultGameProps) => {
                 setVisibleResult(true);
               }}
             >
-              Результат игры
+              Собранные слова
             </div>
             <div
               className={cn(classes.tab, !isVisibleResult && classes.tabActive)}
@@ -34,7 +34,7 @@ export const ContentResultGame = (props: ContentResultGameProps) => {
                 setVisibleResult(false);
               }}
             >
-              Таблица стоимости букв
+              Стоимость букв
             </div>
           </div>
           {!isVisibleResult && <TableLetterScore />}
@@ -42,8 +42,9 @@ export const ContentResultGame = (props: ContentResultGameProps) => {
         </div>
       </div>
       <div className={classes.buttonsWrap}>
-        <Button className={classes.btn} onClick={onClickBreak}>Начать новую игру</Button>
+        <Button type={"continue"} className={classes.btn} onClick={onClickContinue}>Вернуться</Button>
+        <Button className={classes.btn} onClick={onClickBreak}>Закончить игру</Button>
       </div>
     </div>
   );
-};
+});

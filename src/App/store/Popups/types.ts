@@ -8,7 +8,7 @@ export type ConstructorPopupContinueGame = {
 } & ConstructorPopup;
 
 export type ConstructorPopupResultGame = {
-    onClickNewGame: () => void;
+    onClickEndGame: () => void;
   } & ConstructorPopup;
 
 

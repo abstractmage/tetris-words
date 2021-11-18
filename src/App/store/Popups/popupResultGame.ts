@@ -2,17 +2,17 @@ import { Popup } from "./popup";
 import { ConstructorPopupResultGame } from "./types";
 
 export class PopupResultGame extends Popup {
-  onClickNewGame: () => void;
+  onClickEndGame: () => void;
 
   constructor({
     isDisableClickOutside,
-    onClickNewGame,
+    onClickEndGame,
   }: ConstructorPopupResultGame) {
     super({ isDisableClickOutside });
 
-    this.onClickNewGame = ()=>{
+    this.onClickEndGame = ()=>{
       this.hide();
-      onClickNewGame();
+      onClickEndGame();
     };
   }
 }
