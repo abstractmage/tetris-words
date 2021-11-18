@@ -25,7 +25,7 @@ export class GamePageStore {
   });
 
   popupResultGame = new PopupResultGame({
-    onClickNewGame: ()=>console.log('break'),
+    onClickEndGame: ()=>console.log('break'),
   });
   time = 0;
 

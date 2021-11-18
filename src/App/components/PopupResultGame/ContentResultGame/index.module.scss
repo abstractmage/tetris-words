@@ -24,23 +24,21 @@
   font-size: 2.4rem;
   line-height: 1.37;
   color: #001356;
-  &_result{
-    grid-template-rows: 1fr 1fr 4fr;
+  &_result {
+    grid-template-rows: 1fr 4fr;
     grid-template-columns: 1fr 1fr;
     grid-template-areas:
       "tabs tabs"
-      "titleWords ."
       "words words"
-      "scores .";
+      "scores scores";
   }
-  &_table{
-    grid-template-rows: 1fr 5fr;
+  &_table {
+    grid-template-rows: 1fr 4fr;
     grid-template-columns: 1fr 1fr;
     grid-template-areas:
       "tabs tabs"
       "letters letters"
-      "letters letters"
-      "letters letters";
+      ". .";
   }
 }
 
@@ -52,13 +50,14 @@
 .tab {
   position: relative;
   padding: 1rem;
-   height: 4rem;
-  font-weight: 700;
+  height: 4rem;
+  font-size: 2.4rem;
+  font-weight: 900;
   color: #001356;
   background-color: transparent;
   margin-right: 1rem;
   border-radius: 1rem;
-  transition: background-color 0.3s;
+  transition: color 0.3s;
   cursor: pointer;
   &::after {
     position: absolute;
@@ -67,38 +66,42 @@
     transform: translateX(-50%);
     content: "";
     display: block;
-    width: 12rem;
+    width: 90%;
 
-    border-bottom: 0.1rem solid #001356;
+    border-bottom: 0.2rem solid transparent;
   }
   &::last-child {
     margin-right: 0rem;
   }
   &:hover {
-    color: #fff;
-    background-color: #a258ff;
+    color: #a258ff;
     &::after {
-      border: 0.1rem solid transparent;
+      border-bottom: 0.2rem solid #001356;
     }
   }
 }
 
 .tabActive {
-  color: #fff;
-  background-color: #a258ff;
+  color: #a258ff;
   &::after {
-    border: 0.1rem solid transparent;
+    border-bottom: 0.2rem solid #001356;
   }
 }
 
 .buttonsWrap {
   grid-area: buttons;
   display: flex;
+  flex-direction: row;
   justify-content: center;
   align-items: center;
   width: 100%;
 }
 
 .btn {
-  position: absolute;
+  position: relative;
+  height: 4.8rem;
+  margin-right: 2.6rem;
+  &:last-child {
+    margin-right: 0;
+  }
 }

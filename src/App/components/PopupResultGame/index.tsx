@@ -6,13 +6,13 @@ import { useNavigate } from "react-router-dom";
 import { useCallback } from "react";
 
 export const PopupResultGame = (props: PopupResultGameProps) => {
-  const {words, scores, onClickOutside, onClickNewGame } = props;
+  const {words, scores, onClickOutside, onClickEndGame } = props;
   const navigate = useNavigate();
 
   const onClick = useCallback(()=>{
-    onClickNewGame();
+    onClickEndGame();
     navigate('/');
-  },[onClickNewGame, navigate])
+  },[onClickEndGame, navigate])
 
   return (
     <div className={classes.wrap}>
@@ -22,6 +22,7 @@ export const PopupResultGame = (props: PopupResultGameProps) => {
             scores={scores}
             words={words}
             onClickBreak={onClick}
+            onClickContinue={onClickOutside}
           />
         
       </div>

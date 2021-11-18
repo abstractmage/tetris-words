@@ -2,25 +2,22 @@
   grid-area: titleResult;
 }
 
-.titleWords {
-  padding-top: 1rem;
-  padding-bottom: 1rem;
-  font-weight: 700;
-  grid-area: titleWords;
-}
-
 .words {
   grid-area: words;
   max-width: 100%;
   margin: 0 auto;
   column-width: 15rem;
   & > p {
+    &:first-letter {
+      text-transform: capitalize;
+    }
     margin: 0;
   }
 }
 
 .scores {
-  font-weight: 700;
+  font-weight: 900;
   padding-top: 0.5rem;
   grid-area: scores;
+  border-top: 0.4rem solid #001356;
 }
