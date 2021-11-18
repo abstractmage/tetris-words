@@ -3,50 +3,53 @@
   align-items: center;
   justify-content: center;
 
-  padding: 1.6rem 4.55rem;
+  padding: 1.2rem 4.4rem;
 
   cursor: pointer;
   white-space: nowrap;
-  text-transform: uppercase;
 
   color: #fff;
-  border: none;
-  background: #a258ff;
-  box-shadow: 0rem 0.584615rem 0.876923rem -0.438462rem rgba(0, 0, 0, 0.1),
-    0rem 0.876923rem 2.33846rem -0.292308rem rgba(0, 0, 0, 0.1);
-  border-radius: 4.6rem;
+  border-width: 0.4rem;
+  border-color: #a258ff;
+  border-style: solid;
 
-  font-size: 1.8rem;
+  background-color: #a258ff;
+  box-shadow: 0px 8px 12px -6px rgba(0, 0, 0, 0.1),
+    0px 12px 32px -4px rgba(0, 0, 0, 0.1);
+  border-radius: 6.4rem;
+
+  font-size: 1.7rem;
   line-height: 1.42;
-  font-weight: 700;
+  font-weight: 900;
 
   transition: color 0.2s, background 0.2s;
   @media (hover: hover) {
     &:hover {
-      background-color: #9142f1;
+      background-color: #822EEC;
+      border-color: #822EEC;
     }
   }
-  &_continue, &_break{
-    width: 10rem;
-    height: 7.6rem;
+  &:active{
+    border-color: #680BDC;
+    background-color: #680BDC;
+ 
   }
 }
 
-.image {
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  & > svg {
-    width: 100%;
-    height: 100%;
+.main_continue {
+  border-color: #a258ff;
+  background-color: white;
+  color: #a258ff;
+  @media (hover: hover) {
+    &:hover {
+      border-color: #822EEC;
+      background-color: white;
+      color: #822EEC;
+    }
   }
-  &_break {
-    width: 4.7rem;
-    height: 4.7rem;
-  }
-  &_continue {
-    width: 4.6rem;
-    height: 3rem;
+  &:active{
+    border-color: #680BDC;
+    background-color: white;
+    color: #680BDC;
   }
 }

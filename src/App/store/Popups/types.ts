@@ -8,5 +8,11 @@ export type ConstructorPopupContinueGame = {
 } & ConstructorPopup;
 
 export type ConstructorPopupResultGame = {
-    onClickBreak: () => void;
+    onClickNewGame: () => void;
   } & ConstructorPopup;
+
+
+export type ConstructorPopupStartGame = {
+  onClickSinglePlay: () => void;
+  onClickMultiplePlay: () => void;
+} & ConstructorPopup;

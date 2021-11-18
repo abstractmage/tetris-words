@@ -26,7 +26,7 @@ export class GamePageStore {
 
   popupResultGame = new PopupResultGame({
     isDisableClickOutside: true,
-    onClickBreak: ()=>console.log('break'),
+    onClickNewGame: ()=>console.log('break'),
   });
   time = 0;
 

@@ -42,7 +42,7 @@ export const ContentResultGame = (props: ContentResultGameProps) => {
         </div>
       </div>
       <div className={classes.buttonsWrap}>
-        <Button type={"break"} className={classes.btn} onClick={onClickBreak} />
+        <Button className={classes.btn} onClick={onClickBreak}>Начать новую игру</Button>
       </div>
     </div>
   );

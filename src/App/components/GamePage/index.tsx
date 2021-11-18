@@ -143,7 +143,7 @@ export const GamePage = observer(function GamePage() {
           words={progressController.words}
           scores={progressController.scores}
           onClickOutside={popupResultGame.onClickOutside}
-          onClickNewGame={popupResultGame.onClickBreak}
+          onClickNewGame={popupResultGame.onClickNewGame}
         />
       </Fade>
     </>
