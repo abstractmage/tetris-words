@@ -64,7 +64,6 @@ export class GamePageStore {
     this.selectorHelper.on(selectorHelperEventNames.selectionEnd, async ({ selectedCubes }) => {
       const word = selectedCubes.map((cube) => cube.letter).join('').toLowerCase();
       const found = russianWords.find((w) => w === word);
-      this.timer.stop();
       this.timer.start(1000);
 
       if (found) {
@@ -205,7 +204,6 @@ export class GamePageStore {
       const allIntersectedCellsAreEmpty = intersectedCells.every((cell) => cell.cubeId === null);
 
       if (intersectedCells.length === groupCubes.length && allIntersectedCellsAreEmpty) {
-        this.timer.stop();
         const tapeSlotChunkIndex = this.getTapeSlotChunkIndexByTapeSlotUid(cube.slotId);
 
         groupCubes.forEach((cube, i) => {
