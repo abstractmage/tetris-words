@@ -1,32 +1,45 @@
 import classes from "./index.module.scss";
-import { Button } from "../Button";
 import { PopupProps } from "./types";
+import cn from "classnames";
+import { ContentContinueGame } from "./ContentContinueGame";
+import { ContentResultGame } from "./ContentResultGame";
 
-const txt = `Хочешь закончить игру\r\nили продолжить?`;
+const collectedWords = [
+  "казак",
+  "казак",
+  "казак",
+  "казак",
+  "казак",
+  "казак",
+  "казак",
+  "казак",
+  "казак",
+  "казак",
+  "казак",
+  "казак",
+  "казак",
+  "казак",
+];
 
 export const Popup = (props: PopupProps) => {
-  const { text } = props;
+  const { text, type = "continueGame" } = props;
   return (
     <div className={classes.wrap}>
       <div className={classes.overlay}></div>
-      <div className={classes.popup}>
-        <div className={classes.popupContent}>
-          <div className={classes.textWrap}>
-            <div className={classes.text}>{text ? text : txt}</div>
-          </div>
-          <div className={classes.buttonsWrap}>
-            <Button
-              type={"continue"}
-              className={classes.btn}
-              onClick={() => console.log("click continue")}
-            />
-            <Button
-              type={"break"}
-              className={classes.btn}
-              onClick={() => console.log("click break")}
-            />
-          </div>
-        </div>
+      <div className={cn(classes.popup, classes[`popup_${type}`])}>
+        {type === "continueGame" ? (
+          <ContentContinueGame
+            text={text}
+            onClickBreak={() => console.log("click break")}
+            onClickContinue={() => console.log("click continue")}
+          />
+        ) : (
+          <ContentResultGame
+            scores={100}
+            words={collectedWords}
+            onClickBreak={() => console.log("click break")}
+          />
+        )}
       </div>
     </div>
   );

@@ -1,0 +1,17 @@
+.table{
+    grid-area: letters;
+    max-width: 100%;
+    margin: 0 auto;
+    column-width: 14rem;
+    & > p {
+      margin: 0;
+    }
+    padding: 2rem;
+  }
+  .letter{
+    text-transform: uppercase;
+  }
+  
+  .letterScore{
+    font-weight: 700;
+  }
