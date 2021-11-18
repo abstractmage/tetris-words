@@ -1,29 +1,32 @@
-import React from 'react';
+import React from "react";
 import { observer, useLocalObservable } from "mobx-react";
-import { chunk } from 'lodash';
-import cn from 'classnames';
+import { chunk } from "lodash";
+import cn from "classnames";
 import { Field } from "../Field";
 import { Cell } from "../Cell";
 import { Tape } from "../Tape";
 import styles from "./index.module.scss";
 import { ScoreCounter } from "../ScoreCounter";
 import { BackButton } from "../BackButton";
-import { Cube } from '../Cube';
-import { Div } from '../Div';
-import { Dragger } from '../Dragger';
-import { Slot as DraggerSlot } from '../Dragger/components/Slot';
-import { Plate as DraggerPlate } from '../Dragger/components/Plate';
-import { GamePageStore } from './store/GamePageStore';
-import { Fade } from '../Fade';
-import { FullSizeBlock } from '../FullSizeBlock';
+import { Cube } from "../Cube";
+import { Div } from "../Div";
+import { Dragger } from "../Dragger";
+import { Slot as DraggerSlot } from "../Dragger/components/Slot";
+import { Plate as DraggerPlate } from "../Dragger/components/Plate";
+import { GamePageStore } from "./store/GamePageStore";
+import { Fade } from "../Fade";
+import { FullSizeBlock } from "../FullSizeBlock";
+import { PopupContinueGame } from "../PopupContinueGame";
+import { PopupResultGame } from "../PopupResultGame";
 
 export const GamePage = observer(function GamePage() {
   const store = useLocalObservable(() => new GamePageStore());
   const tapeSlots = React.useMemo(() => chunk(store.tapeSlots, 5), [store.tapeSlots]);
   const timerValue = (20000 - store.time) / 1000;
-
+  const { popupContinueGame, popupResultGame, progressController } = store
   return (
-    <Dragger>
+    <>
+       <Dragger>
       <div className={styles.main}>
         <div className={styles.progressContainer}>
           <div className={styles.scoreCounterContainer}>
@@ -92,5 +95,27 @@ export const GamePage = observer(function GamePage() {
         </Tape>
       </div>
     </Dragger>
+      <Fade
+        shown={popupContinueGame.isVisible}
+        onShowingEnd={popupContinueGame.handleTransitionEnd}
+      >
+        <PopupContinueGame
+          onClickOutside={popupContinueGame.onClickOutside}
+          onClickBreak={popupContinueGame.onClickBreak}
+          onClickContinue={popupContinueGame.onClickContinue}
+        />
+      </Fade>
+      <Fade
+        shown={popupResultGame.isVisible}
+        onShowingEnd={popupResultGame.handleTransitionEnd}
+      >
+        <PopupResultGame
+          words={progressController.words}
+          scores={progressController.scores}
+          onClickOutside={popupResultGame.onClickOutside}
+          onClickNewGame={popupResultGame.onClickBreak}
+        />
+      </Fade>
+    </>
   );
 });
