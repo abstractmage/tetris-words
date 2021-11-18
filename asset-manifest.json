@@ -1,25 +1,25 @@
 {
   "files": {
-    "main.css": "/tetris-words/static/css/main.93a5fffb.chunk.css",
-    "main.js": "/tetris-words/static/js/main.41bbd7d9.chunk.js",
-    "main.js.map": "/tetris-words/static/js/main.41bbd7d9.chunk.js.map",
-    "runtime-main.js": "/tetris-words/static/js/runtime-main.625e78de.js",
-    "runtime-main.js.map": "/tetris-words/static/js/runtime-main.625e78de.js.map",
-    "static/js/2.45c8bc1b.chunk.js": "/tetris-words/static/js/2.45c8bc1b.chunk.js",
-    "static/js/2.45c8bc1b.chunk.js.map": "/tetris-words/static/js/2.45c8bc1b.chunk.js.map",
-    "static/js/3.2b53e9fa.chunk.js": "/tetris-words/static/js/3.2b53e9fa.chunk.js",
-    "static/js/3.2b53e9fa.chunk.js.map": "/tetris-words/static/js/3.2b53e9fa.chunk.js.map",
-    "index.html": "/tetris-words/index.html",
-    "static/css/main.93a5fffb.chunk.css.map": "/tetris-words/static/css/main.93a5fffb.chunk.css.map",
-    "static/js/2.45c8bc1b.chunk.js.LICENSE.txt": "/tetris-words/static/js/2.45c8bc1b.chunk.js.LICENSE.txt",
-    "static/media/index.scss": "/tetris-words/static/media/Nunito-SemiBoldItalic.0be5b877.ttf",
-    "static/media/sprite.470cb81c.svg": "/tetris-words/static/media/sprite.470cb81c.svg",
-    "static/media/sprite.b53005ef.svg": "/tetris-words/static/media/sprite.b53005ef.svg"
+    "main.css": "/tetris-words-2/static/css/main.8c03bbc3.chunk.css",
+    "main.js": "/tetris-words-2/static/js/main.41bbd7d9.chunk.js",
+    "main.js.map": "/tetris-words-2/static/js/main.41bbd7d9.chunk.js.map",
+    "runtime-main.js": "/tetris-words-2/static/js/runtime-main.4fb91383.js",
+    "runtime-main.js.map": "/tetris-words-2/static/js/runtime-main.4fb91383.js.map",
+    "static/js/2.037953b5.chunk.js": "/tetris-words-2/static/js/2.037953b5.chunk.js",
+    "static/js/2.037953b5.chunk.js.map": "/tetris-words-2/static/js/2.037953b5.chunk.js.map",
+    "static/js/3.2b53e9fa.chunk.js": "/tetris-words-2/static/js/3.2b53e9fa.chunk.js",
+    "static/js/3.2b53e9fa.chunk.js.map": "/tetris-words-2/static/js/3.2b53e9fa.chunk.js.map",
+    "index.html": "/tetris-words-2/index.html",
+    "static/css/main.8c03bbc3.chunk.css.map": "/tetris-words-2/static/css/main.8c03bbc3.chunk.css.map",
+    "static/js/2.037953b5.chunk.js.LICENSE.txt": "/tetris-words-2/static/js/2.037953b5.chunk.js.LICENSE.txt",
+    "static/media/index.scss": "/tetris-words-2/static/media/Nunito-SemiBoldItalic.0be5b877.ttf",
+    "static/media/sprite.470cb81c.svg": "/tetris-words-2/static/media/sprite.470cb81c.svg",
+    "static/media/sprite.b53005ef.svg": "/tetris-words-2/static/media/sprite.b53005ef.svg"
   },
   "entrypoints": [
-    "static/js/runtime-main.625e78de.js",
-    "static/js/2.45c8bc1b.chunk.js",
-    "static/css/main.93a5fffb.chunk.css",
+    "static/js/runtime-main.4fb91383.js",
+    "static/js/2.037953b5.chunk.js",
+    "static/css/main.8c03bbc3.chunk.css",
     "static/js/main.41bbd7d9.chunk.js"
   ]
 }
