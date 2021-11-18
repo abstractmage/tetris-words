@@ -1,11 +1,14 @@
 import React from 'react';
 import { Transition } from 'react-transition-group';
-import cn from 'classnames';
-import { reflowElement } from '../../shared/helpers/reflowElement';
+import { reflowElement } from 'src/App/shared/helpers/reflowElement';
+import { useCombinedRefs } from 'src/App/shared/useCombinedRefs';
+import { FullSizeBlock } from '../FullSizeBlock';
 import { FadeProps } from './types';
-import classes from './index.module.scss';
 
-const Fade = function Fade(props: FadeProps) {
+export const Fade = React.forwardRef(function Fade(
+  props: FadeProps,
+  forwardedRef: React.Ref<HTMLDivElement>,
+) {
   const {
     className,
     style,
@@ -16,11 +19,10 @@ const Fade = function Fade(props: FadeProps) {
     withUnmount = true,
     children,
     onShowingEnd,
-    positonAbsolute = false,
     ...otherProps
   } = props;
 
-  const ref = React.useRef<HTMLDivElement>(null);
+  const ref = useCombinedRefs(forwardedRef);
 
   const styleMap = React.useMemo(
     () => ({
@@ -43,8 +45,8 @@ const Fade = function Fade(props: FadeProps) {
   );
 
   const handleShowingStart = React.useCallback(() => {
-    // eslint-disable-next-line no-unused-expressions
     ref.current && reflowElement(ref.current);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   const handleShowingEnd = React.useCallback(() => {
@@ -62,21 +64,16 @@ const Fade = function Fade(props: FadeProps) {
       onEntered={handleShowingEnd}
       onExited={handleShowingEnd}
     >
-      {(state) => {
-        return (
-          <div
-            // eslint-disable-next-line react/jsx-props-no-spreading
-            {...otherProps}
-            ref={ref}
-            style={state !== 'unmounted' ? { ...style, ...styleMap[state] } : { ...style }}
-            className={cn(classes.main, positonAbsolute && classes.main_absolute, className)}
-          >
-            {children}
-          </div>
-        );
-      }}
+      {(state) => (
+        <FullSizeBlock
+          {...otherProps}
+          ref={ref}
+          style={state !== 'unmounted' ? { ...style, ...styleMap[state] } : { ...style }}
+          className={className}
+        >
+          {children}
+        </FullSizeBlock>
+      )}
     </Transition>
   );
-};
-
-export { Fade };
+});

@@ -23,7 +23,7 @@ export const BackButton = ({ className, disabled, style: styleProp, ...otherProp
     window.addEventListener('resize', calcWidth);
     return () => window.removeEventListener('resize', calcWidth);
   }, []);
-  
+
   return (
     <FullSizeBlock
       {...otherProps}

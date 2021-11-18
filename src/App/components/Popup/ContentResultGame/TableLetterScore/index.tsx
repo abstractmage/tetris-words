@@ -1,4 +1,4 @@
-import { letterScoreDistributions } from "src/App/store/ProgressController/letterScoreDistributions";
+import { letterScoreDistributions } from "src/App/store/ProgressController/constants";
 import classes from "./index.module.scss";
 
 const getWordScore = (score: number) => {

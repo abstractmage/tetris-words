@@ -14,17 +14,59 @@
 .backButtonContainer{
   position: absolute;
   width: 8rem;
-  height: 8.7rem;
+  height: 8rem;
   left: 3rem;
   bottom: 3.7rem;
+  display: flex;
+  align-items: flex-end;
 }
 
 .scoreCounterContainer{
   width: 12rem;
-  height: 13.7rem;
+  height: 12rem;
 }
 
 .fieldContainer {
   width: 57.6rem;
   padding-top: 3.7rem;
+}
+
+.tapeSlotsWrap {
+  position: relative;
+  width: 10.4rem;
+  height: 10.4rem;
+}
+
+.tapeSlot {
+  position: absolute;
+  pointer-events: none;
+  width: 5rem;
+  height: 5rem;
+
+  &_position {
+    &_1 {
+      left: 2.7rem;
+      top: 2.7rem;
+    }
+
+    &_2 {
+      left: 0;
+      top: 2.7rem;
+    }
+
+    &_3 {
+      left: 5.2rem;
+      top: 2.7rem;
+    }
+
+    &_4 {
+      left: 2.7rem;
+      top: 0;
+    }
+
+    &_5 {
+      left: 2.7rem;
+      top: 5.2rem;
+    }
+  }
 }

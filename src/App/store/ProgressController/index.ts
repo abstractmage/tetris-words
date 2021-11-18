@@ -1,5 +1,5 @@
 import { makeAutoObservable } from 'mobx';
-import { letterScoreDistributions } from "./letterScoreDistributions";
+import { letterScoreDistributions } from "./constants";
 
 export class ProgressController {
   private _words: string[] = [];
@@ -13,7 +13,7 @@ export class ProgressController {
   collectWord(word: string){
     this._words.push(word);
     const wordScores = this._getWordScores(word);
-    if(wordScores){
+    if (wordScores){
         this._scores += wordScores;
     }
   }

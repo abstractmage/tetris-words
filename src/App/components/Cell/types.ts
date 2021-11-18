@@ -1,5 +1,5 @@
-export type CellProps = {
-  children?: React.ReactNode;
-  isFilled?: boolean;
+import React from 'react';
+
+export type CellProps = React.HTMLAttributes<HTMLDivElement> & {
   isHovered?: boolean;
 };

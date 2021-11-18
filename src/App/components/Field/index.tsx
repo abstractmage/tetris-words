@@ -4,12 +4,13 @@ import cn from "classnames";
 import { FieldProps } from "./type";
 
 export const Field = function (props: FieldProps) {
-  const { isDisabled, children } = props;
+  const { isDisabled, children, ...otherProps } = props;
+
   return (
-    <div className={cn(classes.field, isDisabled && classes.field_disabled)}>
-        <div className={classes.cells}>
-            {children}
-        </div>
+    <div {...otherProps} className={cn(classes.field, isDisabled && classes.field_disabled)}>
+      <div className={classes.cells}>
+        {children}
+      </div>
     </div>
   );
 };
