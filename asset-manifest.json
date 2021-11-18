@@ -1,8 +1,8 @@
 {
   "files": {
     "main.css": "/tetris-words/static/css/main.93a5fffb.chunk.css",
-    "main.js": "/tetris-words/static/js/main.41bbd7d9.chunk.js",
-    "main.js.map": "/tetris-words/static/js/main.41bbd7d9.chunk.js.map",
+    "main.js": "/tetris-words/static/js/main.ea2c1f14.chunk.js",
+    "main.js.map": "/tetris-words/static/js/main.ea2c1f14.chunk.js.map",
     "runtime-main.js": "/tetris-words/static/js/runtime-main.625e78de.js",
     "runtime-main.js.map": "/tetris-words/static/js/runtime-main.625e78de.js.map",
     "static/js/2.45c8bc1b.chunk.js": "/tetris-words/static/js/2.45c8bc1b.chunk.js",
@@ -20,6 +20,6 @@
     "static/js/runtime-main.625e78de.js",
     "static/js/2.45c8bc1b.chunk.js",
     "static/css/main.93a5fffb.chunk.css",
-    "static/js/main.41bbd7d9.chunk.js"
+    "static/js/main.ea2c1f14.chunk.js"
   ]
 }
