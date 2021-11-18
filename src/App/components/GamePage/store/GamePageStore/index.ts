@@ -149,7 +149,7 @@ export class GamePageStore {
   private generateFigureCubes(targetTapeSlotChunkIndex: number) {
     const type = sample([1, 2, 3]);
     const length = type === 1 ? 1 : 2;
-    const lettersData = range(length).map(() => this.getRandomLetterData());
+    const lettersData = range(length).map(() => sample(letterScoreDistributions.rus)!);
     const targetTapeSlotChunk = chunk(this.tapeSlots, 5)[targetTapeSlotChunkIndex];
     const figureGroup = uniqueId();
 
