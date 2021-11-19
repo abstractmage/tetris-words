@@ -21,12 +21,22 @@ export class GamePageStore {
 
   popupContinueGame = new PopupContinueGame({
     onClickBreak: ()=>console.log('break'),
-    onClickContinue: ()=>console.log('continue')
+    onClickContinue: ()=>{
+      console.log('continue');
+      this.inactivityTimer.start(1000);
+    },
+    onClickOutside:()=>{
+      console.log('continue');
+      this.inactivityTimer.start(1000);
+    },
   });
 
   popupResultGame = new PopupResultGame({
     onClickEndGame: ()=>console.log('break'),
   });
+
+  needShowPopupContinueGame = false;
+
   time = 0;
 
   coins: Coin[] = [];
@@ -50,6 +60,8 @@ export class GamePageStore {
 
   private timer = new Timer();
 
+  private inactivityTimer = new Timer();
+
   constructor() {
     makeAutoObservable(this, {}, { autoBind: true });
     this._cubes.forEach((cube) => this.startDragListeners(cube));
@@ -59,12 +71,14 @@ export class GamePageStore {
         this._cubes.forEach((cube) => cube.setSelected(false));
         selectedCubes.forEach((cube) => cube.setSelected(true));
         this.timer.pause();
+        this.inactivityTimer.stop();
       },
     );
     this.selectorHelper.on(selectorHelperEventNames.selectionEnd, async ({ selectedCubes }) => {
       const word = selectedCubes.map((cube) => cube.letter).join('').toLowerCase();
       const found = russianWords.find((w) => w === word);
       this.timer.start(1000);
+      this.inactivityTimer.start(1000);
 
       if (found) {
         await this.launchCoin(selectedCubes[0].element!.parentElement!, this.coinFinishAnchor!);
@@ -112,6 +126,18 @@ export class GamePageStore {
       }
     });
     this.timer.start(1000);
+
+    this.inactivityTimer.on(timerEventNames.tick, ({ value }) => {
+      if (value === 30000) {
+        this.inactivityTimer.stop();
+        if(this.needShowPopupContinueGame){
+          this.popupContinueGame.show().then(()=>{
+            this.needShowPopupContinueGame = false;
+          })
+        }
+      }
+    });
+    this.inactivityTimer.start(1000);
   }
 
   get tapeSlots() {
@@ -185,6 +211,7 @@ export class GamePageStore {
 
     cube.on(cubeEventNames.startDrag, () => {
       this.timer.pause();
+      this.inactivityTimer.stop();
     });
     
     cube.on(cubeEventNames.intersectionIn, (data) => {
@@ -224,6 +251,10 @@ export class GamePageStore {
           this.stopDragListeners(cube);
         });
 
+        if(!this.needShowPopupContinueGame && this.field.getCountFilledCells()>=75){
+          this.needShowPopupContinueGame = true;
+        }
+
         this.selectorHelper.startListening({
           cubes: this._cubes.filter((cube) => !cube.dragListening),
           field: this._field,
@@ -241,6 +272,7 @@ export class GamePageStore {
       }
 
       this.timer.start(1000);
+      this.inactivityTimer.start(1000);
     });
   }
 

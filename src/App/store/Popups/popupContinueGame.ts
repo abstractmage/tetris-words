@@ -10,8 +10,9 @@ export class PopupContinueGame extends Popup {
     isDisableClickOutside,
     onClickBreak,
     onClickContinue,
+    onClickOutside,
   }: ConstructorPopupContinueGame) {
-    super({ isDisableClickOutside });
+    super({ isDisableClickOutside, onClickOutside });
 
     this.onClickBreak = onClickBreak;
     this.onClickContinue = ()=>{

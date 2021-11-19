@@ -8,7 +8,9 @@ export class Popup {
 
   isVisibleTransition = false;
 
-  constructor({ isDisableClickOutside }: ConstructorPopup = {}) {
+  _onClickOutside: ()=>void;
+
+  constructor({ isDisableClickOutside, onClickOutside }: ConstructorPopup = {}) {
     makeObservable<Popup>(this, {
       isVisible: observable,
       isVisibleTransition: observable,
@@ -20,6 +22,7 @@ export class Popup {
 
     this.isDisableClickOutside =
       isDisableClickOutside === undefined ? false : isDisableClickOutside;
+    this._onClickOutside = onClickOutside || (()=>{});
     this.show = this.show.bind(this);
     this.hide = this.hide.bind(this);
     this.handleTransitionEnd = this.handleTransitionEnd.bind(this);
@@ -44,6 +47,7 @@ export class Popup {
 
   onClickOutside() {
     if (this.isDisableClickOutside) return;
+    this._onClickOutside();
     this.isVisible = false;
   }
 }
