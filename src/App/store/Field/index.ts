@@ -24,6 +24,11 @@ export class Field {
     return this._cells;
   }
 
+  getCountFilledCells() {
+    const count = this._cells.filter(cell => cell.cubeId);
+    return count.length
+  }
+
   on<T extends keyof EventTypeMap>(eventType: T, handler: EventTypeMap[T]) {
     this.eventEmitter.on(eventType, handler);
   }

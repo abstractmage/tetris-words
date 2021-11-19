@@ -1,5 +1,6 @@
 export type ConstructorPopup = {
   isDisableClickOutside?: boolean;
+  onClickOutside?: () => void;
 };
 
 export type ConstructorPopupContinueGame = {

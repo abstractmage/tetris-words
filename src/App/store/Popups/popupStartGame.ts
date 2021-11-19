@@ -10,8 +10,9 @@ export class PopupStartGame extends Popup {
     isDisableClickOutside,
     onClickSinglePlay,
     onClickMultiplePlay,
+    onClickOutside
   }: ConstructorPopupStartGame) {
-    super({ isDisableClickOutside });
+    super({ isDisableClickOutside, onClickOutside });
 
     this.onClickSinglePlay = () => {
       this.hide();

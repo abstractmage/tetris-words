@@ -7,8 +7,9 @@ export class PopupResultGame extends Popup {
   constructor({
     isDisableClickOutside,
     onClickEndGame,
+    onClickOutside
   }: ConstructorPopupResultGame) {
-    super({ isDisableClickOutside });
+    super({ isDisableClickOutside, onClickOutside });
 
     this.onClickEndGame = ()=>{
       this.hide();
