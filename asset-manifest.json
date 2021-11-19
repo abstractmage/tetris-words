@@ -1,17 +1,17 @@
 {
   "files": {
-    "main.css": "/tetris-words/static/css/main.cd5969f3.chunk.css",
-    "main.js": "/tetris-words/static/js/main.e23e2052.chunk.js",
-    "main.js.map": "/tetris-words/static/js/main.e23e2052.chunk.js.map",
+    "main.css": "/tetris-words/static/css/main.479d8d37.chunk.css",
+    "main.js": "/tetris-words/static/js/main.78bc274c.chunk.js",
+    "main.js.map": "/tetris-words/static/js/main.78bc274c.chunk.js.map",
     "runtime-main.js": "/tetris-words/static/js/runtime-main.7c846731.js",
     "runtime-main.js.map": "/tetris-words/static/js/runtime-main.7c846731.js.map",
-    "static/js/2.a6210a30.chunk.js": "/tetris-words/static/js/2.a6210a30.chunk.js",
-    "static/js/2.a6210a30.chunk.js.map": "/tetris-words/static/js/2.a6210a30.chunk.js.map",
+    "static/js/2.f67f4170.chunk.js": "/tetris-words/static/js/2.f67f4170.chunk.js",
+    "static/js/2.f67f4170.chunk.js.map": "/tetris-words/static/js/2.f67f4170.chunk.js.map",
     "static/js/3.8315bf05.chunk.js": "/tetris-words/static/js/3.8315bf05.chunk.js",
     "static/js/3.8315bf05.chunk.js.map": "/tetris-words/static/js/3.8315bf05.chunk.js.map",
     "index.html": "/tetris-words/index.html",
-    "static/css/main.cd5969f3.chunk.css.map": "/tetris-words/static/css/main.cd5969f3.chunk.css.map",
-    "static/js/2.a6210a30.chunk.js.LICENSE.txt": "/tetris-words/static/js/2.a6210a30.chunk.js.LICENSE.txt",
+    "static/css/main.479d8d37.chunk.css.map": "/tetris-words/static/css/main.479d8d37.chunk.css.map",
+    "static/js/2.f67f4170.chunk.js.LICENSE.txt": "/tetris-words/static/js/2.f67f4170.chunk.js.LICENSE.txt",
     "static/media/index.scss": "/tetris-words/static/media/Nunito-SemiBoldItalic.0be5b877.ttf",
     "static/media/index.module.scss": "/tetris-words/static/media/back.784050e7.svg",
     "static/media/sprite.205334e7.svg": "/tetris-words/static/media/sprite.205334e7.svg",
@@ -20,8 +20,8 @@
   },
   "entrypoints": [
     "static/js/runtime-main.7c846731.js",
-    "static/js/2.a6210a30.chunk.js",
-    "static/css/main.cd5969f3.chunk.css",
-    "static/js/main.e23e2052.chunk.js"
+    "static/js/2.f67f4170.chunk.js",
+    "static/css/main.479d8d37.chunk.css",
+    "static/js/main.78bc274c.chunk.js"
   ]
 }
